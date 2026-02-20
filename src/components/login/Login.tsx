@@ -1,13 +1,11 @@
 'use client'
 import Link from 'next/link';
-import { RefreshCw } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import AnoAI from '@/components/AnimatedBackground';
 import FlipTextReveal from '@/components/FlipText/FlipTextReveal';
 import styles from './Login.module.css';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { color } from 'three/tsl';
-
 const Login = ({ onLogin }: { onLogin: () => void }) => {
     const router = useRouter();
     const [error, setError] = useState('');
@@ -56,7 +54,9 @@ const Login = ({ onLogin }: { onLogin: () => void }) => {
 
     return (
     <main className={styles.pageWrapper}>
-      {/* Background Layer */}
+      <Link href="/" className={styles.backArrow} aria-label="Back to home">
+        <ArrowLeft size={24} />
+      </Link>
       <AnoAI />
 
       {/* Content Layer */}

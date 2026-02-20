@@ -1,5 +1,6 @@
 'use client'
-import { LogIn } from 'lucide-react'; 
+import Link from 'next/link';
+import { LogIn, ArrowLeft } from 'lucide-react'; 
 import AnoAI from '@/components/AnimatedBackground';
 import FlipTextReveal from '@/components/FlipText/FlipTextReveal';
 import styles from '../login/Login.module.css'; 
@@ -42,6 +43,9 @@ const Register = () => {
 
     return (
         <main className={styles.pageWrapper}>
+            <Link href="/" className={styles.backArrow} aria-label="Back to home">
+                <ArrowLeft size={24} />
+            </Link>
             <AnoAI />
             <FlipTextReveal word="JOIN US" />
             
