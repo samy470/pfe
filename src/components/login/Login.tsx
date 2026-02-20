@@ -1,7 +1,12 @@
 'use client'
-
+import Link from 'next/link';
+import { RefreshCw } from 'lucide-react';
+import AnoAI from '@/components/AnimatedBackground';
+import FlipTextReveal from '@/components/FlipText/FlipTextReveal';
+import styles from './Login.module.css';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { color } from 'three/tsl';
 
 const Login = ({ onLogin }: { onLogin: () => void }) => {
     const router = useRouter();
@@ -50,35 +55,45 @@ const Login = ({ onLogin }: { onLogin: () => void }) => {
 };
 
     return (
-        <div className="login-page">
-            <div className="login-container">
-                <div className="header">
-                    <h2>Login</h2>               
-                </div>
+    <main className={styles.pageWrapper}>
+      {/* Background Layer */}
+      <AnoAI />
 
-                <form onSubmit={handleLogin} className="login-form">
-                    <div className="form-group">
-                        <label htmlFor="username">Username:</label>
-                        <input type="text" id="username" placeholder="Enter your username" value={data.username} onChange={handleChange} required />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="password">Password:</label>
-                        <input type={showPassword ? 'text' : 'password'} id="password" placeholder="Enter your password" value={data.password} onChange={handleChange} required />
-                        <div className="form-check form-switch">
-                            <input className="form-check-input" type="radio" role="switch" id="switchCheckChecked" onClick={() => setShowPassword(!showPassword)} />
-                            <label className="form-check-label" htmlFor="switchCheckChecked">Show Password</label>
-                        </div>
-                    </div>
-                    {error && <div className="error-message">{error}</div>}
-                    <button type="submit" className="login-btn">
-                        Login
-                    </button>
-                    <button type="button" className="login-btn" onClick={() => router.push("/signin")}>
-                        Create Account
-                    </button>
-                </form>
-            </div>
-        </div>
+      {/* Content Layer */}
+      <FlipTextReveal word="CONNECT" />
+      
+      <div className={styles.loginCard}>
+        <h2 style={{ marginBottom: '20px', fontSize: '1.5rem', fontWeight: 'bold' }}>Login</h2>
+        <form>
+          <div style={{ marginBottom: '15px' }}>
+            <label style={{ display: 'block', marginBottom: '5px' }}>Username</label>
+            <input type="text" style={{ width: '100%', padding: '10px', borderRadius: '5px', background: '#000', border: '1px solid #333', color: '#fff' }} />
+          </div>
+          
+          <div style={{ marginBottom: '15px' }}>
+            <label style={{ display: 'block', marginBottom: '5px' }}>Password</label>
+            <input type={showPassword ? 'text' : 'password'} style={{ width: '100%', padding: '10px', borderRadius: '5px', background: '#000', border: '1px solid #333', color: '#fff' }} />
+            <input type="checkbox" id="showPassword" onChange={() => setShowPassword(!showPassword)} />
+          <label htmlFor="showPassword" style={{ marginLeft: '5px', color: '#fff' }}>Show Password</label>
+          {error && <p style={{ color: 'red', marginTop: '10px' }}>{error}</p>}
+          </div>
+
+         <button type="submit" className={styles.loginBtn}>Sign In</button>
+
+        <div className={styles.registerSection}>
+  <p>Dont have an account?</p>
+  <Link 
+    href="/Registration" 
+    className={styles.registerLink} 
+    style={{ color: '#0070f3', fontWeight: 'bold', textDecoration: 'none', marginLeft: '5px' }}
+  >
+    Register here
+  </Link>
+</div>
+       
+        </form>
+      </div>
+    </main>
     )
 }
 export default Login;

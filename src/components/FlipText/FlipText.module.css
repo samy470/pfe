@@ -1,0 +1,61 @@
+.flipContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+  width: 100%;
+  margin-bottom: 1rem; /* Space between title and login card */
+}
+
+.title {
+  /* This makes it BIG again */
+  font-size: 4.5rem; 
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  color: #ffffff;
+  display: flex;
+  gap: 0.1rem;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.char {
+  display: inline-block;
+  opacity: 0;
+  transform: rotateX(-90deg) translateY(20px);
+  /* The timing of the reveal */
+  animation: flip-up 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  animation-delay: calc(var(--index) * 0.1s);
+}
+
+@keyframes flip-up {
+  to {
+    opacity: 1;
+    transform: rotateX(0deg) translateY(0);
+  }
+}
+
+.iconButton {
+  margin-top: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  padding: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.iconButton:hover {
+  background: #0070f3; /* Glows blue on hover */
+  transform: scale(1.1) rotate(180deg); /* Spins half-way when you hover to register */
+  box-shadow: 0 0 15px rgba(0, 112, 243, 0.5);
+}
+
+/* Mobile responsive - shrinks slightly for phones */
+@media (max-width: 768px) {
+  .title {
+    font-size: 2.5rem;
+  }
+}

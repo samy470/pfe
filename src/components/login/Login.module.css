@@ -1,0 +1,75 @@
+.pageWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  gap: 2rem;
+}
+
+.loginCard {
+  padding: 40px;
+  width: 380px;
+  /* Transparent Glass Effect */
+  background: rgba(15, 15, 20, 0.7);
+  backdrop-filter: blur(12px); 
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  color: white;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+  transition: transform 0.3s ease;
+  z-index: 10;
+}
+
+.loginCard:hover {
+  transform: translateY(-5px);
+  border-color: #0070f3;
+}
+
+/* Add your existing form-group and button styles here */
+.loginBtn {
+  width: 100%;
+  padding: 12px;
+  background: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 20px;
+}
+.registerSection {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* Space between text and icon */
+  color: #a1a1aa;
+  font-size: 0.9rem;
+}
+
+.registerSection p {
+  margin: 0;
+}
+
+.iconButton {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.iconButton:hover {
+  background: #0070f3;
+  transform: rotate(180deg) scale(1.1);
+  box-shadow: 0 0 15px rgba(0, 112, 243, 0.5);
+}

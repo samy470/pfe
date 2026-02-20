@@ -1,21 +1,13 @@
-'use client'
-
 import "./globals.css";
-import Login from "@/components/login/Login";
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
-    const handleLogin = () => {
-    console.log("User logged in");
-  };
   return (
-    <html lang="en">
-      <body>
-        <Login onLogin={handleLogin} />
+    <html lang="en" className="dark">
+      <body className="bg-background">
         {children}
       </body>
     </html>
