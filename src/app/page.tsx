@@ -1,9 +1,18 @@
+
+'use client';
+import dynamic from 'next/dynamic';
 import Hero from '@/components/hero/hero';
 import Link from 'next/link';
+import 'mapbox-gl/dist/mapbox-gl.css';
+
+const StoreMap = dynamic(() => import('@/components/map/Map'), {
+  ssr: false,
+  loading: () => <div style={{ height: '500px', width: '100%', background: '#000' }} />
+});
 
 export default function Home() {
   return (
-    <>
+    <div className="flex flex-col">
       <nav className="fixed top-0 right-0 p-6 z-50 flex gap-3">
         <Link
           href="/Login"
@@ -18,7 +27,10 @@ export default function Home() {
           Register
         </Link>
       </nav>
-      <Hero />
-    </>
+      <StoreMap />
+      <div className="relative z-10">
+        <Hero />
+      </div>
+    </div>
   );
 }

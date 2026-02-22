@@ -1,0 +1,55 @@
+
+.customMarker {
+  width: 24px;
+  height: 24px;
+  background: #fe4a49;
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(254, 74, 73, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pulse {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #fe4a49;
+  border-radius: 50%;
+  z-index: -1;
+  animation: pulse-animation 2s infinite;
+}
+
+@keyframes pulse-animation {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(3.5); opacity: 0; }
+}
+
+:global(.mapboxgl-popup-content) {
+  background: #111111 !important;
+  color: #ffffff !important;
+  border-radius: 16px !important;
+  padding: 20px !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5) !important;
+}
+
+:global(.mapboxgl-popup-tip) {
+  border-top-color: #111111 !important;
+  border-bottom-color: #111111 !important;
+}
+
+.popupTitle {
+  color: #fe4a49;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+.popupAddress {
+  color: #a3a3a3;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}

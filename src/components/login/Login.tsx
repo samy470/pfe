@@ -59,7 +59,7 @@ const Login = ({ onLogin }: { onLogin: () => void }) => {
       </Link>
       <AnoAI />
 
-      {/* Content Layer */}
+      
       <FlipTextReveal word="CONNECT" />
       
       <div className={styles.loginCard}>
@@ -69,14 +69,32 @@ const Login = ({ onLogin }: { onLogin: () => void }) => {
             <label style={{ display: 'block', marginBottom: '5px' }}>Username</label>
             <input type="text" style={{ width: '100%', padding: '10px', borderRadius: '5px', background: '#000', border: '1px solid #333', color: '#fff' }} />
           </div>
-          
-          <div style={{ marginBottom: '15px' }}>
-            <label style={{ display: 'block', marginBottom: '5px' }}>Password</label>
-            <input type={showPassword ? 'text' : 'password'} style={{ width: '100%', padding: '10px', borderRadius: '5px', background: '#000', border: '1px solid #333', color: '#fff' }} />
-            <input type="checkbox" id="showPassword" onChange={() => setShowPassword(!showPassword)} />
-          <label htmlFor="showPassword" style={{ marginLeft: '5px', color: '#fff' }}>Show Password</label>
-          {error && <p style={{ color: 'red', marginTop: '10px' }}>{error}</p>}
-          </div>
+          <div className={styles.inputGroup}>
+    <label className={styles.label}>Password</label>
+    <input 
+        id="password"
+        type={showPassword ? 'text' : 'password'} 
+        value={data.password} 
+        onChange={handleChange} 
+        className={styles.inputField} 
+        required 
+    />
+    
+    <div className={styles.checkboxContainer}>
+        <input 
+            type="checkbox" 
+            id="showPassword" 
+            className={styles.customCheckbox}
+            checked={showPassword}
+            onChange={() => setShowPassword(!showPassword)} 
+        />
+        <label htmlFor="showPassword" className={styles.checkboxLabel}>
+            Show Password
+        </label>
+    </div>
+
+    {error && <p className={styles.errorMessage}>{error}</p>}
+</div>
 
          <button type="submit" className={styles.loginBtn}>Sign In</button>
 

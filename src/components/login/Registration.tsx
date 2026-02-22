@@ -13,7 +13,9 @@ const Register = () => {
     const [data, setData] = useState({
         username: "",
         email: "",
-        password: ""
+        password: "",
+        confirmPassword: "",
+        role: ""
     });
 
     const handleChange = (e: any) => {
@@ -50,38 +52,64 @@ const Register = () => {
             <FlipTextReveal word="JOIN US" />
             
             <div className={styles.loginCard}>
-                <h2 style={{ marginBottom: '20px', fontSize: '1.5rem', fontWeight: 'bold' }}>Register</h2>
-                <form onSubmit={handleRegister}>
-                    <div style={{ marginBottom: '15px' }}>
-                        <label style={{ display: 'block', marginBottom: '5px' }}>Username</label>
-                        <input id="username" type="text" value={data.username} onChange={handleChange} style={inputStyle} required />
-                    </div>
+    <h2 style={{ marginBottom: '20px', fontSize: '1.5rem', fontWeight: 'bold' }}>Register</h2>
+    <form onSubmit={handleRegister}>
+        <div className={styles.inputGroup}>
+            <label className={styles.label}>Username</label>
+            <input id="username" type="text" value={data.username} onChange={handleChange} className={styles.inputField} required />
+        </div>
 
-                    <div style={{ marginBottom: '15px' }}>
-                        <label style={{ display: 'block', marginBottom: '5px' }}>Email</label>
-                        <input id="email" type="email" value={data.email} onChange={handleChange} style={inputStyle} required />
-                    </div>
-                    
-                    <div style={{ marginBottom: '15px' }}>
-                        <label style={{ display: 'block', marginBottom: '5px' }}>Password</label>
-                        <input id="password" type="password" value={data.password} onChange={handleChange} style={inputStyle} required />
-                    </div>
-
-                    {error && <p style={{ color: 'red', marginBottom: '15px' }}>{error}</p>}
-                    <button type="submit" className={styles.loginBtn}>Create Account</button>
-
-                    <div className={styles.registerSection}>
-                        <p>Already have an account? Login here</p>
-                        <button 
-                            type="button"
-                            className={styles.iconButton} 
-                            onClick={() => router.push("/Login")}
-                        >
-                            <LogIn size={18} />
-                        </button>
-                    </div>
-                </form>
+        <div className={styles.inputGroup}>
+            <label className={styles.label}>Email</label>
+            <input id="email" type="email" value={data.email} onChange={handleChange} className={styles.inputField} required />
+        </div>
+        
+        <div className={styles.inputGroup}>
+            <label className={styles.label}>Account Type</label>
+            <div className={styles.selectWrapper}>
+                <select 
+                    id="role"
+                    name="role"
+                    className={styles.customSelect}
+                    value={data.role}
+                    onChange={handleChange}
+                    required
+                >
+                    <option value="" disabled hidden>-- Select Role --</option>
+                    <option value="customer">Customer</option>
+                    <option value="publisher">Publisher</option>
+                </select>
             </div>
+        </div>
+
+        <div className={styles.inputGroup}>
+            <label className={styles.label}>Password</label>
+            <input id="password" type="password" value={data.password} onChange={handleChange} className={styles.inputField} required />
+        </div>
+
+        <div className={styles.inputGroup}>
+            <label className={styles.label}>Confirm Password</label>
+            <input id="confirmPassword" type="password" value={data.confirmPassword} onChange={handleChange} className={styles.inputField} required />
+        </div>
+
+        {error && <p style={{ color: '#ff4d4d', fontSize: '0.8rem', marginTop: '10px' }}>{error}</p>}
+
+        <button type="submit" className={styles.loginBtn}>
+            Create Account
+        </button>
+
+        <div className={styles.registerSection}>
+            <p>Already have an account?</p>
+            <button 
+                type="button"
+                className={styles.iconButton} 
+                onClick={() => router.push("/Login")}
+            >
+                <LogIn size={18} />
+            </button>
+        </div>
+    </form>
+</div>
         </main>
     );
 };
