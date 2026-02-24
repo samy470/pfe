@@ -16,23 +16,17 @@ pipeline {
         
         stage('Build') {
             steps {
-                script {
-                    // Use docker.build instead of sh 'docker build'
-                    docker.build('myapp')
-                }
+                sh 'docker build -t myapp .'
             }
         }
         
         stage('Deploy') {
             steps {
-                script {
-                    // Stop and remove existing container if running
-                    sh 'docker stop myapp || true'
-                    sh 'docker rm myapp || true'
-                    
-                    // Run new container
-                    docker.image('myapp').run('-d -p 5000:5000 --name myapp')
-                }
+                sh '''
+                    docker stop myapp || true
+                    docker rm myapp || true
+                    docker run -d -p 5000:5000 --name myapp myapp
+                '''
             }
         }
     }
