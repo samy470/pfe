@@ -1,175 +1,127 @@
-.hero {
+.heroContainer {
   position: relative;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
-  overflow: hidden;
-  background: black;
-}
-
-.container {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  pointer-events: auto;
-  background: black;
-}
-
-.heroContent {
-  position: absolute;
-  inset: 0;
+  min-height: 800px;
+  background: #050505;
+  overflow: hidden; /* Cuts off the skewed edges */
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1.5rem;
-  z-index: 20;
-  pointer-events: none;
 }
 
-.heroContent > * {
-  pointer-events: auto;
+.carouselSection {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.title {
-  font-size: clamp(2.5rem, 6vw, 4rem);
-  font-weight: 700;
-  color: grey;
-  margin: 0;
-  text-align: center;
-  text-transform: uppercase;
-  z-index: 10;
-  margin-bottom: 800px;
+.carouselGrid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  height: 150%; 
+  width: 130%;  
+  transform: rotate(-10deg) skewY(20deg);
+  transform-origin: center;
+  flex-shrink: 0;
 }
 
-.ctaButton {
-  padding: 0.75rem 2rem;
-  border-radius: 8px;
-  font-weight: 600;
-  background: #0070f3;
-  color: white;
-  text-decoration: none;
-  transition: background 0.2s ease;
-  pointer-events: auto;
+.columnWrapper {
+  flex: 1;
+  max-width: 280px;
+  height: 100%;
+  overflow: hidden;
 }
 
-.ctaButton:hover {
-  background: #0060df;
+/* Depth effect for the 6 columns */
+.columnWrapper:nth-child(1),
+.columnWrapper:nth-child(6) {
+  filter: blur(4px);
+  opacity: 0.8;
+}
+
+.columnWrapper:nth-child(2),
+.columnWrapper:nth-child(5) {
+  filter: blur(2px);
+  opacity: 0.4;
 }
 
 .column {
-  position: relative;
-}
-
-.column:has(.gamePartTop:hover),
-.column:has(.gamePartBottom:hover) {
-  z-index: 10;
-}
-
-.gamePartTop {
-  position: absolute;
-  inset: 0;
-  filter: grayscale(70%) brightness(0.95);
-  clip-path: polygon(0 0, 100% 0, 0 100%);
-  background-size: cover;
-  background-position: center;
-  border-left: 1px solid black ;
-  border-top: 1px solid black;
-  cursor: pointer;
-  transition: transform 0.3s ease, filter 0.3s ease;
-  pointer-events: auto;
-}
-
-.gamePartTop:hover {
-  transform: scale(1.04);
-  z-index: 5;
-  filter: grayscale(40%) brightness(1.05);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-}
-
-.gamePartTop.selected {
-  filter: grayscale(20%) brightness(1.1);
-}
-.gamePartBottom {
-  position: absolute;
-  inset: 0;
-  filter: grayscale(70%) brightness(0.95);
-  clip-path: polygon(100% 100%, 0 100%, 100% 0);
-  background-size: cover;
-  background-position: center;
-  border-right: 1px solid rgba(255, 255, 255, 0.2);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  cursor: pointer;
-  transition: transform 0.3s ease, filter 0.3s ease;
-  pointer-events: auto;
-}
-
-.gamePartBottom:hover {
-  transform: scale(1.04);
-  z-index: 5;
-  filter: grayscale(40%) brightness(1.05);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-}
-
-.gamePartBottom.selected {
-  filter: grayscale(20%) brightness(1.1);
-}
-
-
-.cardPopup {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
-  cursor: pointer;
+  flex-direction: column;
+  gap: 20px;
+  will-change: transform;
 }
 
-.cardPopup .card {
-  cursor: default;
-  width: 280px;
-  padding: 0;
-  background: rgba(20, 20, 28, 0.95);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-  animation: cardSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-@keyframes cardSlideIn {
-  from {
-    transform: translate(var(--origin-x, 0), var(--origin-y, 0));
-    opacity: 0.6;
-  }
-  to {
-    transform: translate(0, 0);
-    opacity: 1;
-  }
-}
-
-.cardImage {
+.gameCard {
+  position: relative;
   width: 100%;
-  height: 160px;
+  aspect-ratio: 2/3;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: #111;
+}
+
+.gameImage {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  filter: saturate(0.8) contrast(1.1);
 }
 
-.cardTitle {
-  margin: 1rem 1rem 0.25rem;
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: white;
+.imageOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%);
 }
 
-.cardDesc {
-  margin: 0 1rem 1rem;
-  font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.6);
+.vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 0%, rgba(5, 5, 5, 0.8) 70%, #050505 100%);
+  pointer-events: none;
+}
+
+.bottomFade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40vh;
+  background: linear-gradient(to top, #050505, transparent);
+  pointer-events: none;
+}
+
+.contentOverlay {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Allows scrolling if needed */
+}
+
+.contentOverlay * {
+  pointer-events: auto; /* Makes sure button is clickable */
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .columnWrapper:nth-child(n+5) {
+    display: none; /* Show 4 columns on tablet */
+  }
+}
+
+@media (max-width: 640px) {
+  .carouselGrid {
+    transform: none; /* Straighten for mobile performance */
+    width: 100%;
+  }
+  .columnWrapper:nth-child(n+3) {
+    display: none; /* Show 2 columns on mobile */
+  }
 }

@@ -1,0 +1,405 @@
+/* =============================
+   NAVBAR – Premium Dark Gaming
+   ============================= */
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(7, 7, 14, 0.85);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+.inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+/* LOGO */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #fff;
+    text-decoration: none;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: opacity 0.2s;
+}
+
+.logo:hover {
+    opacity: 0.85;
+}
+
+.logoIcon {
+    font-size: 1.4rem;
+    color: #6366f1;
+    line-height: 1;
+}
+
+/* HAMBURGER */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.bar {
+    width: 20px;
+    height: 2px;
+    background: #fff;
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.barOpen1 {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.barOpen2 {
+    opacity: 0;
+}
+
+.barOpen3 {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* MENU */
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+    justify-content: space-between;
+}
+
+.navLinks {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    flex-wrap: wrap;
+}
+
+.navLink {
+    padding: 0.4rem 0.75rem;
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: color 0.2s, background 0.2s;
+    white-space: nowrap;
+}
+
+.navLink:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Role-specific links */
+.roleLink {
+    color: rgba(99, 102, 241, 0.9);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.roleLink:hover {
+    color: #fff;
+    background: rgba(99, 102, 241, 0.25);
+    border-color: rgba(99, 102, 241, 0.5);
+}
+
+/* RIGHT SECTION */
+.rightSection {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+}
+
+/* SEARCH */
+.searchBox {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+}
+
+.searchBox:focus-within {
+    border-color: rgba(99, 102, 241, 0.6);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.searchInput {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    padding: 0.45rem 0.75rem;
+    font-size: 0.85rem;
+    width: 180px;
+}
+
+.searchInput::placeholder {
+    color: rgba(255, 255, 255, 0.35);
+}
+
+.searchBtn {
+    background: rgba(99, 102, 241, 0.2);
+    border: none;
+    padding: 0.45rem 0.6rem;
+    cursor: pointer;
+    color: #fff;
+    font-size: 0.8rem;
+    transition: background 0.2s;
+}
+
+.searchBtn:hover {
+    background: rgba(99, 102, 241, 0.4);
+}
+
+/* LANGUAGE SWITCHER */
+.langSwitcher {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.langBtn {
+    padding: 0.35rem 0.6rem;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+}
+
+.langBtn:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.langActive {
+    color: #fff !important;
+    background: rgba(99, 102, 241, 0.5) !important;
+}
+
+/* AUTH */
+.authGroup {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.signInBtn {
+    padding: 0.4rem 0.9rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.signInBtn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+.registerBtn {
+    padding: 0.4rem 0.9rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    border: 1px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.registerBtn:hover {
+    background: linear-gradient(135deg, #4f52d3, #7c3aed);
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+}
+
+.logoutBtn {
+    padding: 0.4rem 0.9rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #fff;
+    background: rgba(239, 68, 68, 0.2);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.logoutBtn:hover {
+    background: rgba(239, 68, 68, 0.4);
+    border-color: rgba(239, 68, 68, 0.6);
+}
+
+/* ROLE BADGE */
+.roleBadge {
+    padding: 0.2rem 0.55rem;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.role_admin {
+    background: rgba(239, 68, 68, 0.2);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.role_publisher {
+    background: rgba(234, 179, 8, 0.2);
+    color: #fbbf24;
+    border: 1px solid rgba(234, 179, 8, 0.3);
+}
+
+.role_customer {
+    background: rgba(34, 197, 94, 0.2);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.usernameLabel {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ======== RESPONSIVE ======== */
+@media (max-width: 900px) {
+    .hamburger {
+        display: flex;
+    }
+
+    .menu {
+        display: none;
+        position: fixed;
+        top: 64px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(7, 7, 14, 0.97);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        padding: 2rem 1.5rem;
+        gap: 1.5rem;
+        overflow-y: auto;
+        z-index: 999;
+    }
+
+    .menuOpen {
+        display: flex;
+    }
+
+    .navLinks {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+        width: 100%;
+    }
+
+    .navLink {
+        font-size: 1.1rem;
+        padding: 0.6rem 1rem;
+        width: 100%;
+    }
+
+    .rightSection {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        width: 100%;
+    }
+
+    .searchBox {
+        width: 100%;
+    }
+
+    .searchInput {
+        width: 100%;
+    }
+
+    .authGroup {
+        width: 100%;
+    }
+
+    .signInBtn,
+    .registerBtn,
+    .logoutBtn {
+        text-align: center;
+        width: 100%;
+    }
+}
+
+/* RTL adjustments */
+[dir="rtl"] .logo {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .menu {
+    direction: rtl;
+}
+
+[dir="rtl"] .navLinks {
+    align-items: flex-end;
+}
+
+[dir="rtl"] .rightSection {
+    align-items: flex-end;
+}
+
+[dir="rtl"] .searchInput {
+    text-align: right;
+}

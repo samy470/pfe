@@ -1,81 +1,182 @@
 'use client';
-import { useState } from "react";
+import { memo, useState, useCallback } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
-import { useDispatch } from "react-redux";
-import { searchItems } from "../../redux/shopSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setSearchQuery } from "../../redux/shopSlice";
+import { setLanguage } from "../../redux/languageSlice";
+import { logout } from "../../redux/authSlice";
+import { RootState } from "../../redux/store";
+import { t, Language } from "../../lib/i18n";
+import type { AppDispatch } from "../../redux/store";
+import styles from "./NavBar.module.css";
 
-export default function NavBar({ onLogout }: { onLogout: () => void }) {
-  const dispatch = useDispatch();
+export default function NavBar() {
+  const dispatch = useDispatch<AppDispatch>();
   const [query, setQuery] = useState("");
+  const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
 
-  const handleLogout = () => {
-    router.push("/Login");
-    localStorage.removeItem("username");
-    onLogout();
-  }
+  const lang = useSelector((state: RootState) => state.language.lang);
+  const { role, isLoggedIn, username } = useSelector((state: RootState) => state.auth);
 
-  if (pathname === '/Login' || pathname === '/Registration') return null;
+  const handleLogout = useCallback(() => {
+    dispatch(logout());
+    localStorage.removeItem("username");
+    localStorage.removeItem("token");
+    router.push("/Login");
+  }, [dispatch, router]);
+
+  const handleLangChange = useCallback(
+    (newLang: Language) => {
+      dispatch(setLanguage(newLang));
+      setMenuOpen(false);
+    },
+    [dispatch]
+  );
+
+  if (pathname === "/Login" || pathname === "/Registration" || pathname === "/Shop" || pathname === "/Contact") return null;
+
+  const isAdmin = role === "admin";
+  const isPublisher = role === "publisher";
+  const isCustomer = role === "customer";
+
+  const langLabels: Record<Language, string> = { en: "EN", fr: "FR", ar: "عر" };
 
   return (
-    <nav className="bg-gray-900 text-white p-4">
-      <div className="container mx-auto flex flex-wrap items-center justify-between">
-        <Link href="/" className="text-xl font-bold">
-          Navbar scroll
+    <nav className={styles.navbar} dir={lang === "ar" ? "rtl" : "ltr"}>
+      <div className={styles.inner}>
+        {}
+        <Link href="/" className={styles.logo} onClick={() => setMenuOpen(false)}>
+          <span className={styles.logoIcon}></span>
+          <span>{t(lang, "PlatformName")}</span>
         </Link>
-        <button className="lg:hidden block">
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
+        <button
+          className={styles.hamburger}
+          onClick={() => setMenuOpen((o) => !o)}
+          aria-label="Toggle menu"
+          aria-expanded={menuOpen}
+        >
+          <span className={`${styles.bar} ${menuOpen ? styles.barOpen1 : ""}`} />
+          <span className={`${styles.bar} ${menuOpen ? styles.barOpen2 : ""}`} />
+          <span className={`${styles.bar} ${menuOpen ? styles.barOpen3 : ""}`} />
         </button>
-        <div className="w-full lg:w-auto lg:flex lg:items-center space-y-2 lg:space-y-0 lg:space-x-4 mt-4 lg:mt-0">
-          <Link href="/" className="block hover:text-gray-300">
-            Home
-          </Link>
-          <Link href="/Shop" className="block hover:text-gray-300">
-            Shop
-          </Link>
-          <button onClick={handleLogout} className="block hover:text-gray-300">
-            Logout
-          </button>
-          <div className="relative group">
-            <button className="hover:text-gray-300">
-              Language ▼
-            </button>
-            <div className="absolute hidden group-hover:block bg-gray-800 text-white rounded mt-2 py-2 w-48">
-              <a href="#action3" className="block px-4 py-2 hover:bg-gray-700">English</a>
-              <a href="#action4" className="block px-4 py-2 hover:bg-gray-700">French</a>              <a href="#action5" className="block px-4 py-2 hover:bg-gray-700">Arab</a>
-            </div>
-          </div>
-        </div>
 
-        {/* search */}
-        <div className="w-full lg:w-auto mt-4 lg:mt-0">
-          <div className="flex gap-2">
-            <Link href="/Login" className="px-5 py-2 rounded-lg font-medium bg-white/10 hover:bg-white/20 border border-white/20">
-            Sign in
-          </Link>
-          <Link href="/Registration" className="px-5 py-2 rounded-lg font-medium bg-blue-600 hover:bg-blue-700">
-            Register
-          </Link>
-            <input
-              type="search"
-              placeholder="Search"
-              className="px-3 py-2 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-blue-500"
-              value={query}
-              onChange={(e) => {
-                setQuery(e.target.value);
-                dispatch(searchItems(e.target.value));
-              }}
-            />
-            <button
-              onClick={() => dispatch(searchItems(query))}
-              className="px-4 py-2 rounded bg-blue-600 hover:bg-blue-700"
-            >
-              Search
-            </button>
+        {}
+        <div className={`${styles.menu} ${menuOpen ? styles.menuOpen : ""}`}>
+
+          <div className={styles.navLinks}>
+            <Link href="/" className={styles.navLink} onClick={() => setMenuOpen(false)}>
+              {t(lang, "home")}
+            </Link>
+            <Link href="/Shop" className={styles.navLink} onClick={() => setMenuOpen(false)}>
+              {t(lang, "shop")}
+            </Link>
+            <Link href="/Contact" className={styles.navLink} onClick={() => setMenuOpen(false)}>
+              Contact
+            </Link>
+            {isAdmin && (
+              <>
+                <Link href="/dashboard" className={`${styles.navLink} ${styles.roleLink}`} onClick={() => setMenuOpen(false)}>
+                  {t(lang, "dashboard")}
+                </Link>
+                <Link href="/admin/games" className={`${styles.navLink} ${styles.roleLink}`} onClick={() => setMenuOpen(false)}>
+                  {t(lang, "manageGames")}
+                </Link>
+                <Link href="/admin/users" className={`${styles.navLink} ${styles.roleLink}`} onClick={() => setMenuOpen(false)}>
+                  {t(lang, "manageUsers")}
+                </Link>
+                <Link href="/admin/audit" className={`${styles.navLink} ${styles.roleLink}`} onClick={() => setMenuOpen(false)}>
+                  Audit Trail
+                </Link>
+                <Link href="/admin/pricing" className={`${styles.navLink} ${styles.roleLink}`} onClick={() => setMenuOpen(false)}>
+                  Pricing Engine
+                </Link>
+              </>
+            )}
+            {isPublisher && (
+              <>
+                <Link href="/publisher/my-games" className={`${styles.navLink} ${styles.roleLink}`} onClick={() => setMenuOpen(false)}>
+                  {t(lang, "myGames")}
+                </Link>
+                <Link href="/publisher/publish" className={`${styles.navLink} ${styles.roleLink}`} onClick={() => setMenuOpen(false)}>
+                  {t(lang, "publishGame")}
+                </Link>
+              </>
+            )}
+
+            {}
+            {isCustomer && (
+              <>
+                <Link href="/customer/purchases" className={`${styles.navLink} ${styles.roleLink}`} onClick={() => setMenuOpen(false)}>
+                  {t(lang, "myPurchases")}
+                </Link>
+                <Link href="/customer/wishlist" className={`${styles.navLink} ${styles.roleLink}`} onClick={() => setMenuOpen(false)}>
+                  {t(lang, "wishlist")}
+                </Link>
+              </>
+            )}
+          </div>
+
+          {}
+          <div className={styles.rightSection}>
+            {}
+            {pathname === "/Shop" && (
+              <div className={styles.searchBox}>
+                <input
+                  type="search"
+                  placeholder={t(lang, "searchPlaceholder")}
+                  className={styles.searchInput}
+                  value={query}
+                  onChange={(e) => {
+                    setQuery(e.target.value);
+                    dispatch(setSearchQuery(e.target.value));
+                  }}
+                />
+                <button
+                  onClick={() => dispatch(setSearchQuery(query))}
+                  className={styles.searchBtn}
+                  aria-label="Search"
+                >
+                  🔍
+                </button>
+              </div>
+            )}
+
+            {}
+            <div className={styles.langSwitcher}>
+              {(["en", "fr", "ar"] as Language[]).map((l) => (
+                <button
+                  key={l}
+                  onClick={() => handleLangChange(l)}
+                  className={`${styles.langBtn} ${lang === l ? styles.langActive : ""}`}
+                  aria-label={`Switch to ${l}`}
+                >
+                  {langLabels[l]}
+                </button>
+              ))}
+            </div>
+
+            {}
+            {isLoggedIn ? (
+              <div className={styles.authGroup}>
+                {role && <span className={`${styles.roleBadge} ${styles[`role_${role}`]}`}>{role}</span>}
+                {username && <span className={styles.usernameLabel}>{username}</span>}
+                <button onClick={handleLogout} className={styles.logoutBtn}>
+                  {t(lang, "logout")}
+                </button>
+              </div>
+            ) : (
+              <div className={styles.authGroup}>
+                <Link href="/Login" className={styles.signInBtn} onClick={() => setMenuOpen(false)}>
+                  {t(lang, "signIn")}
+                </Link>
+                <Link href="/Registration" className={styles.registerBtn} onClick={() => setMenuOpen(false)}>
+                  {t(lang, "register")}
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>

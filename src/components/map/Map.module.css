@@ -1,55 +1,294 @@
+/* ==========================
+   MAP SECTION – Professional
+   ========================== */
 
-.customMarker {
+.section {
+  position: relative;
+  width: 100%;
+  min-height: 600px;
+  overflow: hidden;
+  background: #050508;
+}
+
+/* Background: game background.avif */
+.sectionBg {
+  position: absolute;
+  inset: 0;
+  background-image: url('/game background.avif');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  opacity: 0.18;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.sectionInner {
+  position: relative;
+  z-index: 1;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 5rem 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+/* ── TEXT BLOCK ── */
+.textBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sectionEyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #6366f1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sectionEyebrow::before {
+  content: '';
+  display: block;
   width: 24px;
-  height: 24px;
-  background: #fe4a49;
-  border: 3px solid #ffffff;
-  border-radius: 50%;
-  cursor: pointer;
-  box-shadow: 0 0 15px rgba(254, 74, 73, 0.5);
+  height: 2px;
+  background: #6366f1;
+  border-radius: 2px;
+}
+
+.sectionTitle {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.15;
+  margin: 0;
+  letter-spacing: -0.03em;
+}
+
+.sectionAddress {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ── INFO CARDS ── */
+.infoCards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.infoCard {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 0.85rem 1.1rem;
+  transition: background 0.2s;
+}
+
+.infoCard:hover {
+  background: rgba(99, 102, 241, 0.08);
+  border-color: rgba(99, 102, 241, 0.2);
+}
+
+.infoIcon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.infoLabel {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 0.2rem;
+}
+
+.infoValue {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
+}
+
+/* ── MAP WRAPPER ── */
+.mapWrapper {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(99, 102, 241, 0.2),
+    0 25px 60px rgba(0, 0, 0, 0.6),
+    0 0 80px rgba(99, 102, 241, 0.05);
+}
+
+.mapWrapper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.mapContainer {
+  width: 100%;
+  height: 450px;
+  border-radius: 20px;
+  z-index: 1;
+}
+
+/* ── CUSTOM MARKER ── */
+.markerOuter {
+  position: relative;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.pulse {
+.markerRing {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  background: #fe4a49;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  z-index: -1;
-  animation: pulse-animation 2s infinite;
+  background: rgba(99, 102, 241, 0.3);
+  animation: markerPulse 2s ease-out infinite;
 }
 
-@keyframes pulse-animation {
-  0% { transform: scale(1); opacity: 0.8; }
-  100% { transform: scale(3.5); opacity: 0; }
+@keyframes markerPulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
 }
 
-:global(.mapboxgl-popup-content) {
-  background: #111111 !important;
-  color: #ffffff !important;
-  border-radius: 16px !important;
-  padding: 20px !important;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5) !important;
+.markerCore {
+  position: relative;
+  z-index: 1;
+  width: 32px;
+  height: 32px;
+  background: #6366f1;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #fff;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.5);
 }
 
-:global(.mapboxgl-popup-tip) {
-  border-top-color: #111111 !important;
-  border-bottom-color: #111111 !important;
+.markerPin {
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+/* ── POPUP ── */
+.leafletPopup :global(.leaflet-popup-content-wrapper) {
+  background: #0e0e1a !important;
+  border: 1px solid rgba(99, 102, 241, 0.3) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5) !important;
+  padding: 0 !important;
+}
+
+.leafletPopup :global(.leaflet-popup-tip) {
+  background: #0e0e1a !important;
+}
+
+.leafletPopup :global(.leaflet-popup-content) {
+  margin: 0 !important;
+}
+
+.popup {
+  padding: 0.75rem 1rem;
 }
 
 .popupTitle {
-  color: #fe4a49;
+  font-size: 0.95rem;
   font-weight: 700;
-  font-size: 1.1rem;
-  margin-bottom: 4px;
+  color: #fff;
+  margin-bottom: 0.25rem;
 }
 
 .popupAddress {
-  color: #a3a3a3;
-  font-size: 0.9rem;
-  line-height: 1.4;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.55);
+  margin-bottom: 12px;
+}
+
+.directionsBtn {
+  display: inline-block;
+  background: #6366f1;
+  color: white !important;
+  text-decoration: none !important;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 800;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.2s;
+  text-align: center;
+  width: 100%;
+}
+
+.directionsBtn:hover {
+  background: #4f46e5;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .sectionInner {
+    grid-template-columns: 1fr;
+    padding: 3rem 1.25rem;
+    gap: 2rem;
+  }
+
+  .mapContainer {
+    height: 320px;
+  }
+
+  .sectionBg {
+    background-attachment: scroll;
+  }
+}
+
+@media (max-width: 480px) {
+  .mapContainer {
+    height: 260px;
+  }
+}
+
+/* RTL */
+[dir="rtl"] .sectionEyebrow {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .sectionEyebrow::before {
+  margin-left: auto;
+}
+
+[dir="rtl"] .infoCard {
+  flex-direction: row-reverse;
+  text-align: right;
 }

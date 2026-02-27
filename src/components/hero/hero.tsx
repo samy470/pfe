@@ -1,98 +1,93 @@
-'use client'
-import { useState } from 'react';
-import styles from '@/components/hero/hero.module.css';
+'use client';
+import { motion } from 'framer-motion';
+import { Gamepad2, ChevronRight } from 'lucide-react';
+import Link from 'next/link';
+import styles from './hero.module.css';
 
-const GAME_COVERS_TOP = [
-  'https://cdn.cloudflare.steamstatic.com/steam/apps/1593500/library_600x900_2x.jpg', 
-  'https://cdn.cloudflare.steamstatic.com/steam/apps/1245620/library_600x900_2x.jpg', 
-  'https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/library_600x900_2x.jpg', 
-  'https://cdn.cloudflare.steamstatic.com/steam/apps/1888930/library_600x900_2x.jpg', 
-  'https://cdn.cloudflare.steamstatic.com/steam/apps/1091500/library_600x900_2x.jpg', 
+const GAME_COVERS = [
+  'https://cdn.cloudflare.steamstatic.com/steam/apps/1593500/library_600x900_2x.jpg',
+  'https://cdn.cloudflare.steamstatic.com/steam/apps/1245620/library_600x900_2x.jpg',
+  'https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/library_600x900_2x.jpg',
+  'https://cdn.cloudflare.steamstatic.com/steam/apps/1888930/library_600x900_2x.jpg',
+  'https://cdn.cloudflare.steamstatic.com/steam/apps/271590/library_600x900_2x.jpg',
+  'https://cdn.cloudflare.steamstatic.com/steam/apps/292030/library_600x900_2x.jpg',
+  'https://cdn.cloudflare.steamstatic.com/steam/apps/1817070/library_600x900_2x.jpg',
+  'https://cdn.cloudflare.steamstatic.com/steam/apps/1151640/library_600x900_2x.jpg',
 ];
 
-const GAME_COVERS_BOTTOM = [
-  'https://cdn.cloudflare.steamstatic.com/steam/apps/271590/library_600x900_2x.jpg', 
-  'https://cdn.cloudflare.steamstatic.com/steam/apps/292030/library_600x900_2x.jpg', 
-  'https://cdn.cloudflare.steamstatic.com/steam/apps/1817070/library_600x900_2x.jpg', 
-  'https://cdn.cloudflare.steamstatic.com/steam/apps/1151640/library_600x900_2x.jpg', 
-  'https://cdn.cloudflare.steamstatic.com/steam/apps/374320/library_600x900_2x.jpg', 
-];
-
-const GAME_NAMES_TOP = ['God of War', 'Elden Ring', 'Red Dead Redemption 2', 'The Last of Us Part I', 'Cyberpunk 2077'];
-const GAME_NAMES_BOTTOM = ['Grand Theft Auto V', 'The Witcher 3', 'Marvel\'s Spider-Man', 'Horizon Zero Dawn', 'Dark Souls III'];
-
-export default function Hero() {
-  const [selected, setSelected] = useState<{
-    type: 'top' | 'bottom';
-    index: number;
-    originX: number;
-    originY: number;
-  } | null>(null);
-
-  const handleTriangleClick = (type: 'top' | 'bottom', index: number, e: React.MouseEvent<HTMLDivElement>) => {
-    const el = e.currentTarget;
-    const rect = el.getBoundingClientRect();
-    const originX = rect.left + rect.width / 2;
-    const originY = rect.top + rect.height / 2;
-    setSelected((prev) =>
-      prev?.type === type && prev?.index === index
-        ? null
-        : { type, index, originX, originY }
-    );
-  };
-
-  const selectedData = selected
-    ? {
-        name: selected.type === 'top' ? GAME_NAMES_TOP[selected.index] : GAME_NAMES_BOTTOM[selected.index],
-        image: selected.type === 'top' ? GAME_COVERS_TOP[selected.index] : GAME_COVERS_BOTTOM[selected.index],
-        originX: selected.originX,
-        originY: selected.originY,
-      }
-    : null;
-
+const ScrollingColumn = ({ items, speed = 40, reverse = false }: { items: string[], speed?: number, reverse?: boolean }) => {
   return (
-    <main className={styles.hero}>
-      <div className={styles.heroContent}>
-        <h1 className={styles.title}>Platform name</h1>
-      </div>
-      <div className={styles.container}>
-        {GAME_COVERS_TOP.map((topSrc, i) => (
-          <div key={i} className={styles.column}>
-            <div
-              className={`${styles.gamePartTop} ${selected?.type === 'top' && selected?.index === i ? styles.selected : ''}`}
-              style={{
-                backgroundImage: `linear-gradient(135deg, transparent calc(50% - 1px), rgba(255,255,255,0.3) calc(50% - 1px), rgba(255,255,255,0.3) calc(50% + 1px), transparent calc(50% + 1px)), linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.5)), url(${topSrc})`,
-              }}
-              onClick={(e) => handleTriangleClick('top', i, e)}
-            />
-            <div
-              className={`${styles.gamePartBottom} ${selected?.type === 'bottom' && selected?.index === i ? styles.selected : ''}`}
-              style={{
-                backgroundImage: `linear-gradient(-45deg, transparent calc(50% - 1px), rgba(255,255,255,0.3) calc(50% - 1px), rgba(255,255,255,0.3) calc(50% + 1px), transparent calc(50% + 1px)), linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.5)), url(${GAME_COVERS_BOTTOM[i]})`,
-              }}
-              onClick={(e) => handleTriangleClick('bottom', i, e)}
-            />
+    <div className={styles.columnWrapper}>
+      <motion.div
+        className={styles.column}
+        animate={{ y: reverse ? ["-50%", "0%"] : ["0%", "-50%"] }}
+        transition={{ duration: speed, repeat: Infinity, ease: "linear" }}
+      >
+        {[...items, ...items].map((src, idx) => (
+          <div key={idx} className={styles.gameCard}>
+            <img src={src} alt="Game Cover" className={styles.gameImage} />
+            <div className={styles.imageOverlay} />
           </div>
         ))}
-      </div>
-      {selectedData && (
-        <div className={styles.cardPopup} onClick={() => setSelected(null)}>
-          <div
-            className={styles.card}
-            onClick={(e) => e.stopPropagation()}
-            style={{
-              ['--origin-x' as string]: `${selectedData.originX - (typeof window !== 'undefined' ? window.innerWidth / 2 : 0)}px`,
-              ['--origin-y' as string]: `${selectedData.originY - (typeof window !== 'undefined' ? window.innerHeight / 2 : 0)}px`,
-            }}
-          >
-            <img src={selectedData.image} alt={selectedData.name} className={styles.cardImage} />
-            <h3 className={styles.cardTitle}>{selectedData.name}</h3>
-            <p className={styles.cardDesc}>Click the triangle again to close</p>
-          </div>
-        </div>
-      )}
-  
-    </main>
-       
+      </motion.div>
+    </div>
   );
-}
+};
+
+const Hero = () => {
+  const col1 = [...GAME_COVERS];
+  const col2 = [...GAME_COVERS].reverse();
+  const col3 = [...GAME_COVERS].slice(2).concat(GAME_COVERS.slice(0, 2));
+  const col4 = [...GAME_COVERS].slice(4).concat(GAME_COVERS.slice(0, 4));
+  const col5 = [...GAME_COVERS].slice(6).concat(GAME_COVERS.slice(0, 6));
+  const col6 = [...GAME_COVERS].slice(1).concat(GAME_COVERS.slice(0, 1));
+
+  return (
+    <section className={styles.heroContainer}>
+      <div className={styles.carouselSection}>
+        <div className={styles.carouselGrid}>
+          <ScrollingColumn items={col1} speed={30} />
+          <ScrollingColumn items={col2} speed={40} reverse />
+          <ScrollingColumn items={col3} speed={35} />
+          <ScrollingColumn items={col4} speed={45} reverse />
+          <ScrollingColumn items={col5} speed={38} />
+          <ScrollingColumn items={col6} speed={32} reverse />
+        </div>
+        <div className={styles.vignette} />
+        <div className={styles.bottomFade} />
+      </div>
+
+      <div className={styles.contentOverlay}>
+        <div className="container mx-auto px-6 h-full flex flex-col justify-center items-center text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="space-y-6 max-w-4xl flex flex-col items-center"
+          >
+            <h1 className="text-7xl lg:text-9xl font-black tracking-tighter italic leading-none text-white">
+              Platform<span className="text-[#6366f1]">Name</span>
+            </h1>
+
+            <p className="text-gray-400 text-lg lg:text-xl font-medium max-w-2xl mx-auto leading-relaxed">
+              initiative text
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-8">
+              <Link href="/Shop" className="group relative">
+                <div className="absolute inset-0 bg-[#6366f1] blur-2xl opacity-40 group-hover:opacity-60 transition-opacity" />
+                <button className="relative bg-[#6366f1] text-white px-10 py-5 rounded-[1.5rem] font-black flex items-center gap-3 transition-all active:scale-95">
+                  <Gamepad2 className="w-6 h-6" />
+                  EXPLORE STORE
+                  <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </button>
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Hero;

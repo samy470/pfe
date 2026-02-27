@@ -7,12 +7,12 @@ const AnoAI = () => {
 
   useEffect(() => {
     const container = containerRef.current;
-    if (!container) return; 
+    if (!container) return;
 
     const scene = new THREE.Scene();
     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
     const renderer = new THREE.WebGLRenderer({ antialias: true });
-    
+
     renderer.setSize(window.innerWidth, window.innerHeight);
     container.appendChild(renderer.domElement);
 
@@ -53,7 +53,7 @@ const AnoAI = () => {
           float f = 2.0 + fbm(p + vec2(iTime * 5.0, 0.0)) * 0.5;
           for (float i = 0.0; i < 35.0; i++) {
             vec2 v = p + cos(i * i + (iTime + p.x * 0.08) * 0.025 + i * vec2(13.0, 11.0)) * 3.5;
-            o += vec4(0.1 + 0.3 * sin(i * 0.2 + iTime), 0.3 + 0.5 * cos(i * 0.3), 0.7 + 0.3 * sin(i * 0.4), 1.0) 
+            o += vec4(0.1 + 0.3 * sin(i * 0.2 + iTime), 0.3 + 0.5 * cos(i * 0.3), 0.7 + 0.3 * sin(i * 0.4), 1.0)
                  * exp(sin(i * i + iTime * 0.8)) / length(max(v, vec2(v.x * f * 0.015, v.y * 1.5)));
           }
           gl_FragColor = tanh(pow(o / 100.0, vec4(1.6))) * 1.5;
