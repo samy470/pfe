@@ -7,10 +7,10 @@
   width: 100%;
   min-height: 600px;
   overflow: hidden;
-  background: #050508;
+  background: #020101;
 }
 
-/* Background: game background.avif */
+
 .sectionBg {
   position: absolute;
   inset: 0;
@@ -35,7 +35,7 @@
   align-items: center;
 }
 
-/* ── TEXT BLOCK ── */
+
 .textBlock {
   display: flex;
   flex-direction: column;
@@ -47,7 +47,7 @@
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #6366f1;
+  color: var(--primary);
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -58,7 +58,7 @@
   display: block;
   width: 24px;
   height: 2px;
-  background: #6366f1;
+  background: var(--primary);
   border-radius: 2px;
 }
 
@@ -78,7 +78,7 @@
   line-height: 1.6;
 }
 
-/* ── INFO CARDS ── */
+
 .infoCards {
   display: flex;
   flex-direction: column;
@@ -98,8 +98,8 @@
 }
 
 .infoCard:hover {
-  background: rgba(99, 102, 241, 0.08);
-  border-color: rgba(99, 102, 241, 0.2);
+  background: rgba(220, 38, 38, 0.08);
+  border-color: rgba(220, 38, 38, 0.2);
 }
 
 .infoIcon {
@@ -122,15 +122,15 @@
   font-weight: 500;
 }
 
-/* ── MAP WRAPPER ── */
+
 .mapWrapper {
   position: relative;
   border-radius: 20px;
   overflow: hidden;
   box-shadow:
-    0 0 0 1px rgba(99, 102, 241, 0.2),
+    0 0 0 1px rgba(220, 38, 38, 0.2),
     0 25px 60px rgba(0, 0, 0, 0.6),
-    0 0 80px rgba(99, 102, 241, 0.05);
+    0 0 80px rgba(220, 38, 38, 0.05);
 }
 
 .mapWrapper::before {
@@ -138,7 +138,7 @@
   position: absolute;
   inset: 0;
   border-radius: 20px;
-  border: 1px solid rgba(99, 102, 241, 0.25);
+  border: 1px solid rgba(220, 38, 38, 0.25);
   z-index: 2;
   pointer-events: none;
 }
@@ -150,7 +150,7 @@
   z-index: 1;
 }
 
-/* ── CUSTOM MARKER ── */
+
 .markerOuter {
   position: relative;
   width: 40px;
@@ -165,7 +165,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: rgba(99, 102, 241, 0.3);
+  background: rgba(220, 38, 38, 0.3);
   animation: markerPulse 2s ease-out infinite;
 }
 
@@ -186,13 +186,13 @@
   z-index: 1;
   width: 32px;
   height: 32px;
-  background: #6366f1;
+  background: var(--primary);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   border: 2px solid #fff;
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.5);
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.5);
 }
 
 .markerPin {
@@ -200,10 +200,10 @@
   line-height: 1;
 }
 
-/* ── POPUP ── */
+
 .leafletPopup :global(.leaflet-popup-content-wrapper) {
-  background: #0e0e1a !important;
-  border: 1px solid rgba(99, 102, 241, 0.3) !important;
+  background: #0a0101 !important;
+  border: 1px solid rgba(220, 38, 38, 0.3) !important;
   border-radius: 12px !important;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5) !important;
   padding: 0 !important;
@@ -236,7 +236,7 @@
 
 .directionsBtn {
   display: inline-block;
-  background: #6366f1;
+  background: var(--primary);
   color: white !important;
   text-decoration: none !important;
   padding: 8px 16px;
@@ -251,12 +251,12 @@
 }
 
 .directionsBtn:hover {
-  background: #4f46e5;
+  background: #991b1b;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
 }
 
-/* ── RESPONSIVE ── */
+
 @media (max-width: 900px) {
   .sectionInner {
     grid-template-columns: 1fr;
@@ -279,7 +279,7 @@
   }
 }
 
-/* RTL */
+
 [dir="rtl"] .sectionEyebrow {
   flex-direction: row-reverse;
 }

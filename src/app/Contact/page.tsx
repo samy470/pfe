@@ -39,18 +39,22 @@ const ContactPage = () => {
                         animate={{ opacity: 1, y: 0 }}
                         className="text-center mb-20 space-y-6"
                     >
+                        <div className="flex flex-col items-center gap-4 mb-8">
+                            <div className="w-16 h-1 bg-[#1a73e8] rounded-sm" />
+                            <p className="text-white/40 font-bold uppercase tracking-[0.4em] text-xs">Customer Service</p>
+                        </div>
                         <h1 className="text-6xl lg:text-8xl font-black italic tracking-tighter leading-none text-white uppercase">
-                            DIRECT <span className="text-[#6366f1]">CONTACT</span>
+                            DIRECT <span className="text-[#1a73e8]">SUPPORT</span>
                         </h1>
-                        <p className="text-gray-400 text-lg max-w-2xl mx-auto font-medium leading-relaxed">
-                             Our support agents are ready to assist with technical queries, publisher inquiries, or platform feedback.
+                        <p className="text-[#8f98a0] text-lg max-w-2xl mx-auto font-medium leading-relaxed">
+                            Our support agents are ready to assist with technical queries, publisher inquiries, or platform feedback.
                         </p>
                     </motion.div>
 
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                         <div className="lg:col-span-4 space-y-6">
                             {[
-                                { icon: Mail, title: "Email", detail: "[EMAIL ADDRESS]", link: "Draft Email" },
+                                { icon: Mail, title: "Email", detail: "support@platform.dz", link: "Draft Email" },
                                 { icon: Globe, title: "Social Feed", detail: "@insta-facebook-X", link: "Follow Us" }
                             ].map((item, idx) => (
                                 <motion.div
@@ -61,7 +65,7 @@ const ContactPage = () => {
                                     className={styles.infoCard}
                                 >
                                     <div className={styles.iconBox}>
-                                        <item.icon className="w-6 h-6 text-[#6366f1]" />
+                                        <item.icon className="w-6 h-6 text-red-500" />
                                     </div>
                                     <div>
                                         <h3 className="text-lg font-black text-white uppercase italic">{item.title}</h3>
@@ -90,9 +94,9 @@ const ContactPage = () => {
                                             <div className={styles.successCircle}>
                                                 <CheckCircle2 className="w-16 h-16 text-green-500" />
                                             </div>
-                                            <h2 className="text-4xl font-black italic text-white uppercase mb-4">Transmission Received</h2>
+                                            <h2 className="text-4xl font-extrabold italic text-white uppercase mb-4">Message Received</h2>
                                             <p className="text-gray-400 max-w-md mx-auto mb-10">
-                                                Your message has been sent to our admin terminal. Check your inbox for a confirmation.
+                                                Your message has been sent to our administration. Check your inbox for a confirmation.
                                             </p>
                                             <div className="flex flex-col sm:flex-row gap-4 justify-center">
                                                 <button onClick={() => setSubmitted(false)} className={styles.secondaryBtn}>

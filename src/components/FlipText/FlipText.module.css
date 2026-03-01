@@ -5,11 +5,11 @@
   justify-content: center;
   perspective: 1000px;
   width: 100%;
-  margin-bottom: 1rem; /* Space between title and login card */
+  margin-bottom: 1rem; 
 }
 
 .title {
-  /* This makes it BIG again */
+  
   font-size: 4.5rem; 
   font-weight: 900;
   letter-spacing: -0.05em;
@@ -24,7 +24,7 @@
   display: inline-block;
   opacity: 0;
   transform: rotateX(-90deg) translateY(20px);
-  /* The timing of the reveal */
+  
   animation: flip-up 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
   animation-delay: calc(var(--index) * 0.1s);
 }
@@ -48,12 +48,12 @@
 }
 
 .iconButton:hover {
-  background: #0070f3; /* Glows blue on hover */
-  transform: scale(1.1) rotate(180deg); /* Spins half-way when you hover to register */
+  background: #0070f3; 
+  transform: scale(1.1) rotate(180deg); 
   box-shadow: 0 0 15px rgba(0, 112, 243, 0.5);
 }
 
-/* Mobile responsive - shrinks slightly for phones */
+
 @media (max-width: 768px) {
   .title {
     font-size: 2.5rem;

@@ -51,12 +51,12 @@ const AnoAI = () => {
           vec2 p = (gl_FragCoord.xy - iResolution.xy * 0.5) / iResolution.y * mat2(6.0, -4.0, 4.0, 6.0);
           vec4 o = vec4(0.0);
           float f = 2.0 + fbm(p + vec2(iTime * 5.0, 0.0)) * 0.5;
-          for (float i = 0.0; i < 35.0; i++) {
+          for (float i = 0.0; i < 10.0; i++) {
             vec2 v = p + cos(i * i + (iTime + p.x * 0.08) * 0.025 + i * vec2(13.0, 11.0)) * 3.5;
             o += vec4(0.1 + 0.3 * sin(i * 0.2 + iTime), 0.3 + 0.5 * cos(i * 0.3), 0.7 + 0.3 * sin(i * 0.4), 1.0)
                  * exp(sin(i * i + iTime * 0.8)) / length(max(v, vec2(v.x * f * 0.015, v.y * 1.5)));
           }
-          gl_FragColor = tanh(pow(o / 100.0, vec4(1.6))) * 1.5;
+          gl_FragColor = tanh(pow(o / 40.0, vec4(1.6))) * 1.5;
         }
       `
     });

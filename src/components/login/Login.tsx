@@ -49,7 +49,6 @@ const Login = ({ onLogin }: { onLogin?: () => void }) => {
         setError(result.error || 'Invalid username or password');
       }
     } catch (err) {
-      console.error('Connection error:', err);
       setError("Cannot connect to backend.");
     } finally {
       setLoading(false);
@@ -121,7 +120,6 @@ const Login = ({ onLogin }: { onLogin?: () => void }) => {
             </Link>
           </div>
 
-          {}
           <div className="mt-8 pt-8 border-t border-white/5 space-y-4">
             <p className="text-[10px] font-black uppercase tracking-[3px] text-gray-600 text-center">Demo Quick Access</p>
             <div className="grid grid-cols-3 gap-2">
@@ -133,7 +131,7 @@ const Login = ({ onLogin }: { onLogin?: () => void }) => {
                   dispatch(setUser({ role: 'admin', username: 'Admin_Demo' }));
                   router.push('/');
                 }}
-                className="bg-[#6366f1]/10 border border-[#6366f1]/20 py-2 rounded-xl text-[10px] font-black text-[#6366f1] hover:bg-[#6366f1] hover:text-white transition-all"
+                className="bg-[var(--primary)]/10 border border-[var(--primary)]/20 py-2 rounded-xl text-[10px] font-black text-[var(--primary)] hover:bg-[var(--primary)] hover:text-white transition-all"
               >
                 ADMIN
               </button>
@@ -157,7 +155,7 @@ const Login = ({ onLogin }: { onLogin?: () => void }) => {
                   dispatch(setUser({ role: 'customer', username: 'Customer_Demo' }));
                   router.push('/');
                 }}
-                className="bg-green-500/10 border border-green-500/20 py-2 rounded-xl text-[10px] font-black text-green-500 hover:bg-green-500 hover:text-white transition-all"
+                className="bg-gray-500/10 border border-white/10 py-2 rounded-xl text-[10px] font-black text-gray-400 hover:bg-gray-500 hover:text-white transition-all"
               >
                 CUSTOMER
               </button>

@@ -3,8 +3,11 @@ import "./globals.css";
 import { Provider, useSelector, useDispatch } from 'react-redux';
 import store, { RootState } from '@/redux/store';
 import NavBar from "@/components/navbar/NavBar";
+import SilkBlueBackground from "@/components/SilkBlueBackground";
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function AppShell({ children }: { children: React.ReactNode }) {
   const dir = useSelector((state: RootState) => state.language.dir);
@@ -27,12 +30,27 @@ function AppShell({ children }: { children: React.ReactNode }) {
 
   const isImmersive = pathname === "/" || pathname === "/Shop" || pathname === "/Login" || pathname === "/Registration" || pathname === "/Contact";
 
+  const isAdminOrProfile = pathname.startsWith('/admin') || pathname.includes('/profile') || pathname.startsWith('/publisher');
+
   return (
     <>
+      <SilkBlueBackground />
       <NavBar />
-      <div style={{ paddingTop: isImmersive ? '0px' : '64px' }}>
+      <div className="relative z-10" style={{ paddingTop: isImmersive ? '0px' : '64px' }}>
         {children}
       </div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={lang === 'ar'}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </>
   );
 }
