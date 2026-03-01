@@ -14,6 +14,9 @@ const Register = () => {
     const router = useRouter();
     const lang = useSelector((state: RootState) => state.language.lang);
     const dir = useSelector((state: RootState) => state.language.dir);
+    const [selectedRole, setSelectedRole] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+
 
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
@@ -38,7 +41,7 @@ const Register = () => {
         }
         setLoading(true);
         try {
-            const response = await fetch('http://localhost:5000/api/register', {
+            const response = await fetch('http://localhost:8080/api/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
                 body: JSON.stringify(data),
@@ -47,7 +50,7 @@ const Register = () => {
             if (response.ok) {
                 router.push('/Login');
             } else {
-                setError(result.error || 'Registration failed. Please try again.');
+                setError(result.message || 'Registration failed. Please try again.');
             }
         } catch (err) {
             console.error('Registration error:', err);
@@ -79,32 +82,54 @@ const Register = () => {
                         <input id="email" type="email" value={data.email} onChange={handleChange} className={styles.inputField} required autoComplete="email" />
                     </div>
 
-                    <div className={styles.inputGroup}>
-                        <label htmlFor="role" className={styles.label}>{t(lang, 'accountType')}</label>
-                        <div className={styles.selectWrapper}>
-                            <select
-                                id="role"
-                                name="role"
-                                className={styles.customSelect}
-                                value={data.role}
-                                onChange={handleChange}
-                                required
+                    <div className="mt-8 pt-8 border-t border-white/5 space-y-4">
+                        <p className="text-[10px] font-black uppercase tracking-[3px] text-gray-600 text-center">Choose your Role</p>
+                        <div className="grid grid-cols-3 gap-2">
+                            <button
+                                type="button"
+                                onClick={() => { setData(prev => ({ ...prev, role: 'admin' })); setSelectedRole('admin'); }}
+                                className={`py-2 rounded-xl text-[10px] font-black transition-all ${selectedRole === 'admin' ? 'bg-[#6366f1] text-white' : 'bg-[#6366f1]/10 border border-[#6366f1]/20 text-[#6366f1] hover:bg-[#6366f1] hover:text-white'}`}
                             >
-                                <option value="" disabled hidden>{t(lang, 'selectRole')}</option>
-                                <option value="customer">{t(lang, 'customer')}</option>
-                                <option value="publisher">{t(lang, 'publisher')}</option>
-                            </select>
+                                {t(lang, 'Admin')}
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => { setData(prev => ({ ...prev, role: 'publisher' })); setSelectedRole('publisher'); }}
+                                className={`py-2 rounded-xl text-[10px] font-black transition-all ${selectedRole === 'publisher' ? 'bg-[#6366f1] text-white' : 'bg-[#6366f1]/10 border border-[#6366f1]/20 text-[#6366f1] hover:bg-[#6366f1] hover:text-white'}`}
+                            >
+                                {t(lang, 'Publisher')}
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => { setData(prev => ({ ...prev, role: 'customer' })); setSelectedRole('customer'); }}
+                                className={`py-2 rounded-xl text-[10px] font-black transition-all ${selectedRole === 'customer' ? 'bg-[#6366f1] text-white' : 'bg-[#6366f1]/10 border border-[#6366f1]/20 text-[#6366f1] hover:bg-[#6366f1] hover:text-white'}`}
+                            >
+                                {t(lang, 'Customer')}
+                            </button>
                         </div>
                     </div>
 
                     <div className={styles.inputGroup}>
                         <label htmlFor="password" className={styles.label}>{t(lang, 'password')}</label>
-                        <input id="password" type="password" value={data.password} onChange={handleChange} className={styles.inputField} required autoComplete="new-password" />
+                        <input id="password" type={showPassword ? 'text' : 'password'} value={data.password} onChange={handleChange} className={styles.inputField} required autoComplete="new-password" />
                     </div>
 
                     <div className={styles.inputGroup}>
                         <label htmlFor="confirmPassword" className={styles.label}>{t(lang, 'confirmPassword')}</label>
-                        <input id="confirmPassword" type="password" value={data.confirmPassword} onChange={handleChange} className={styles.inputField} required autoComplete="new-password" />
+                        <input id="confirmPassword" type={showPassword ? 'text' : 'password'} value={data.confirmPassword} onChange={handleChange} className={styles.inputField} required autoComplete="new-password" />
+                    </div>
+
+                    <div className={styles.checkboxContainer}>
+                        <input
+                            type="checkbox"
+                            id="showPassword"
+                            className={styles.customCheckbox}
+                            checked={showPassword}
+                            onChange={() => setShowPassword((v) => !v)}
+                        />
+                        <label htmlFor="showPassword" className={styles.checkboxLabel}>
+                            {t(lang, 'showPassword')}
+                        </label>
                     </div>
 
                     {error && <p className={styles.errorMessage}>{error}</p>}

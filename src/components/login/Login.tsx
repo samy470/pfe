@@ -32,7 +32,7 @@ const Login = ({ onLogin }: { onLogin?: () => void }) => {
     setError('');
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:5000/api/login', {
+      const response = await fetch('http://localhost:8080/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({ username: data.username, password: data.password }),
@@ -46,7 +46,7 @@ const Login = ({ onLogin }: { onLogin?: () => void }) => {
         onLogin?.();
         router.push('/');
       } else {
-        setError(result.error || 'Invalid username or password');
+        setError(result.message || 'Invalid username or password');
       }
     } catch (err) {
       setError("Cannot connect to backend.");
@@ -118,48 +118,6 @@ const Login = ({ onLogin }: { onLogin?: () => void }) => {
             >
               {t(lang, 'registerHere')}
             </Link>
-          </div>
-
-          <div className="mt-8 pt-8 border-t border-white/5 space-y-4">
-            <p className="text-[10px] font-black uppercase tracking-[3px] text-gray-600 text-center">Demo Quick Access</p>
-            <div className="grid grid-cols-3 gap-2">
-              <button
-                type="button"
-                onClick={() => {
-                  localStorage.setItem('role', 'admin');
-                  localStorage.setItem('username', 'Admin_Demo');
-                  dispatch(setUser({ role: 'admin', username: 'Admin_Demo' }));
-                  router.push('/');
-                }}
-                className="bg-[var(--primary)]/10 border border-[var(--primary)]/20 py-2 rounded-xl text-[10px] font-black text-[var(--primary)] hover:bg-[var(--primary)] hover:text-white transition-all"
-              >
-                ADMIN
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  localStorage.setItem('role', 'publisher');
-                  localStorage.setItem('username', 'Publisher_Demo');
-                  dispatch(setUser({ role: 'publisher', username: 'Publisher_Demo' }));
-                  router.push('/');
-                }}
-                className="bg-orange-500/10 border border-orange-500/20 py-2 rounded-xl text-[10px] font-black text-orange-500 hover:bg-orange-500 hover:text-white transition-all"
-              >
-                PUBLISHER
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  localStorage.setItem('role', 'customer');
-                  localStorage.setItem('username', 'Customer_Demo');
-                  dispatch(setUser({ role: 'customer', username: 'Customer_Demo' }));
-                  router.push('/');
-                }}
-                className="bg-gray-500/10 border border-white/10 py-2 rounded-xl text-[10px] font-black text-gray-400 hover:bg-gray-500 hover:text-white transition-all"
-              >
-                CUSTOMER
-              </button>
-            </div>
           </div>
         </form>
       </div>
