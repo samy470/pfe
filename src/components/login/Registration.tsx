@@ -16,7 +16,7 @@ const Register = () => {
     const dir = useSelector((state: RootState) => state.language.dir);
     const [selectedRole, setSelectedRole] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-
+    const [success, setSuccess] = useState(false);
 
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
@@ -48,9 +48,9 @@ const Register = () => {
             });
             const result = await response.json();
             if (response.ok) {
-                router.push('/Login');
+                setSuccess(true);
             } else {
-                setError(result.message || 'Registration failed. Please try again.');
+                setError(result.message);
             }
         } catch (err) {
             console.error('Registration error:', err);
@@ -70,7 +70,12 @@ const Register = () => {
 
             <div className={styles.loginCard}>
                 <h2 className={styles.cardTitle}>{t(lang, 'register2')}</h2>
-                <form onSubmit={handleRegister}>
+                {success ? (
+  <div className="text-center p-4 bg-green-100 text-green-700 rounded">
+    Registration successful! Please check your email to verify your account.
+  </div>
+) : (
+  <form onSubmit={handleRegister}>
 
                     <div className={styles.inputGroup}>
                         <label htmlFor="username" className={styles.label}>{t(lang, 'username')}</label>
@@ -150,6 +155,8 @@ const Register = () => {
                         </button>
                     </div>
                 </form>
+)}
+                
             </div>
         </main>
     );
