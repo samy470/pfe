@@ -36,7 +36,7 @@ const Register = () => {
         e.preventDefault();
         setError('');
         if (data.password !== data.confirmPassword) {
-            setError('Passwords do not match.');
+            setError(t(lang, 'passMatchError'));
             return;
         }
         setLoading(true);
@@ -54,7 +54,7 @@ const Register = () => {
             }
         } catch (err) {
             console.error('Registration error:', err);
-            setError('Could not connect to server. Make sure the backend is running.');
+            setError(t(lang, 'serverError'));
         } finally {
             setLoading(false);
         }
@@ -66,13 +66,13 @@ const Register = () => {
                 <ArrowLeft size={24} />
             </Link>
             <AnoAI />
-            <FlipTextReveal word="JOIN US" />
+            <FlipTextReveal word={t(lang, 'joinUs')} />
 
             <div className={styles.loginCard}>
                 <h2 className={styles.cardTitle}>{t(lang, 'register2')}</h2>
                 {success ? (
   <div className="text-center p-4 bg-green-100 text-green-700 rounded">
-    Registration successful! Please check your email to verify your account.
+    {t(lang, 'regSuccess')}
   </div>
 ) : (
   <form onSubmit={handleRegister}>
@@ -88,28 +88,28 @@ const Register = () => {
                     </div>
 
                     <div className="mt-8 pt-8 border-t border-white/5 space-y-4">
-                        <p className="text-[10px] font-black uppercase tracking-[3px] text-gray-600 text-center">Choose your Role</p>
+                        <p className="text-[10px] font-black uppercase tracking-[3px] text-gray-600 text-center">{t(lang, 'chooseRole')}</p>
                         <div className="grid grid-cols-3 gap-2">
                             <button
                                 type="button"
                                 onClick={() => { setData(prev => ({ ...prev, role: 'admin' })); setSelectedRole('admin'); }}
                                 className={`py-2 rounded-xl text-[10px] font-black transition-all ${selectedRole === 'admin' ? 'bg-[#6366f1] text-white' : 'bg-[#6366f1]/10 border border-[#6366f1]/20 text-[#6366f1] hover:bg-[#6366f1] hover:text-white'}`}
                             >
-                                {t(lang, 'Admin')}
+                                {t(lang, 'admin')}
                             </button>
                             <button
                                 type="button"
                                 onClick={() => { setData(prev => ({ ...prev, role: 'publisher' })); setSelectedRole('publisher'); }}
                                 className={`py-2 rounded-xl text-[10px] font-black transition-all ${selectedRole === 'publisher' ? 'bg-[#6366f1] text-white' : 'bg-[#6366f1]/10 border border-[#6366f1]/20 text-[#6366f1] hover:bg-[#6366f1] hover:text-white'}`}
                             >
-                                {t(lang, 'Publisher')}
+                                {t(lang, 'publisher')}
                             </button>
                             <button
                                 type="button"
                                 onClick={() => { setData(prev => ({ ...prev, role: 'customer' })); setSelectedRole('customer'); }}
                                 className={`py-2 rounded-xl text-[10px] font-black transition-all ${selectedRole === 'customer' ? 'bg-[#6366f1] text-white' : 'bg-[#6366f1]/10 border border-[#6366f1]/20 text-[#6366f1] hover:bg-[#6366f1] hover:text-white'}`}
                             >
-                                {t(lang, 'Customer')}
+                                {t(lang, 'customer')}
                             </button>
                         </div>
                     </div>

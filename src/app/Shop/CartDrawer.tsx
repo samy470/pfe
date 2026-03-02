@@ -1,8 +1,10 @@
 'use client';
 import { motion } from 'framer-motion';
 import { ShoppingCart, X, Trash2, Minus, Plus, ChevronRight } from 'lucide-react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { removeFromCart, updateQuantity } from '@/redux/shopSlice';
+import { RootState } from '@/redux/store';
+import { t } from '@/lib/i18n';
 import styles from './shop.module.css';
 
 interface CartDrawerProps {
@@ -16,6 +18,7 @@ interface CartDrawerProps {
 
 export default function CartDrawer({ isOpen, onClose, onCheckout, cartItems, totalAmount, getPrice }: CartDrawerProps) {
     const dispatch = useDispatch();
+    const lang = useSelector((state: RootState) => state.language.lang);
 
     if (!isOpen) return null;
 
@@ -36,7 +39,7 @@ export default function CartDrawer({ isOpen, onClose, onCheckout, cartItems, tot
                 className={styles.drawer}
             >
                 <div className={styles.drawerHeader}>
-                    <h2 className={styles.drawerTitle}>YOUR <span className="text-[var(--primary)]">Cart</span></h2>
+                    <h2 className={styles.drawerTitle}>{t(lang, 'yourCart')}</h2>
                     <button onClick={onClose} className={styles.closeBtn}>
                         <X size={20} />
                     </button>
@@ -46,12 +49,12 @@ export default function CartDrawer({ isOpen, onClose, onCheckout, cartItems, tot
                     {cartItems.length === 0 ? (
                         <div className={styles.emptyCart}>
                             <ShoppingCart size={60} strokeWidth={1} />
-                            <p className={styles.emptyText}>Empty_Cart</p>
+                            <p className={styles.emptyText}>{t(lang, 'emptyCart')}</p>
                             <button
                                 onClick={onClose}
                                 className="text-[var(--primary)] text-[10px] font-black tracking-[2px] uppercase hover:underline"
                             >
-                                Return to Store
+                                {t(lang, 'returnToStore')}
                             </button>
                         </div>
                     ) : (
@@ -95,7 +98,7 @@ export default function CartDrawer({ isOpen, onClose, onCheckout, cartItems, tot
                 {cartItems.length > 0 && (
                     <div className={styles.drawerFooter}>
                         <div className={styles.totalRow}>
-                            <span className={styles.totalLabel}>Total</span>
+                            <span className={styles.totalLabel}>{t(lang, 'total')}</span>
                             <span className={styles.totalVal}>{totalAmount.toLocaleString()} DA</span>
                         </div>
                         <button 
@@ -105,7 +108,7 @@ export default function CartDrawer({ isOpen, onClose, onCheckout, cartItems, tot
                                 onCheckout();
                             }}
                         >
-                            Purchase
+                            {t(lang, 'purchase')}
                             <ChevronRight size={18} />
                         </button>
                     </div>

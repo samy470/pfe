@@ -46,10 +46,10 @@ const Login = ({ onLogin }: { onLogin?: () => void }) => {
         onLogin?.();
         router.push('/');
       } else {
-        setError(result.message || 'Invalid username or password');
+        setError(result.message || t(lang, 'invalidCreds'));
       }
     } catch (err) {
-      setError("Cannot connect to backend.");
+      setError(t(lang, 'cannotConnect'));
     } finally {
       setLoading(false);
     }
@@ -61,7 +61,7 @@ const Login = ({ onLogin }: { onLogin?: () => void }) => {
         <ArrowLeft size={24} />
       </Link>
       <AnoAI />
-      <FlipTextReveal word="CONNECT" />
+      <FlipTextReveal word={t(lang, 'connect')} />
 
       <div className={styles.loginCard}>
         <h2 className={styles.cardTitle}>{t(lang, 'login')}</h2>

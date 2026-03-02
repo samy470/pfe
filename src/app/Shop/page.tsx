@@ -18,6 +18,7 @@ import {
 } from '@/redux/shopSlice';
 import { Dispatch } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
+import { t } from '@/lib/i18n';
 import styles from './shop.module.css';
 
 import StoreHero from './StoreHero';
@@ -39,6 +40,7 @@ export default function Shop() {
     const selectedCategory = useSelector((state: RootState) => state.cart.selectedCategory);
     const pricingStrategy = useSelector((state: RootState) => state.cart.pricingStrategy);
     const { isLoggedIn } = useSelector((state: RootState) => state.auth);
+    const lang = useSelector((state: RootState) => state.language.lang);
 
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [selectedGame, setSelectedGame] = useState<any>(null);
@@ -105,12 +107,12 @@ export default function Shop() {
                 <div className={styles.topBar}>
                     <nav className={styles.navHud}>
                         <Link href="/" className={styles.navItem}>
-                            <Home size={14} /> <span>Home</span>
+                            <Home size={14} /> <span>{t(lang, "home")}</span>
                         </Link>
                         <div className={styles.navSeparator} />
-                        <span className={styles.navActive}>Marketplace</span>
+                        <span className={styles.navActive}>{t(lang, "marketplace")}</span>
                         {pricingStrategy !== 'default' && (
-                            <span className={styles.strategyBadge}>{pricingStrategy} strategy active</span>
+                            <span className={styles.strategyBadge}>{pricingStrategy} {t(lang, "strategyActive")}</span>
                         )}
                     </nav>
 
@@ -138,9 +140,9 @@ export default function Shop() {
                     <div className={styles.titleBox}>
                         <div className="flex items-center gap-3 mb-2">
                             <div className="w-1 h-8 bg-[#1a73e8] rounded-sm" />
-                            <p className="text-white/40 font-bold uppercase tracking-[0.3em] text-[10px]">Asset Inventory</p>
+                            <p className="text-white/40 font-bold uppercase tracking-[0.3em] text-[10px]">{t(lang, "assetInventory")}</p>
                         </div>
-                        <h2 className="text-4xl font-black uppercase text-white">Full Catalog</h2>
+                        <h2 className="text-4xl font-black uppercase text-white">{t(lang, "fullCatalog")}</h2>
                     </div>
 
                     <div className="flex items-center gap-4">
@@ -148,7 +150,7 @@ export default function Shop() {
                             <Search className="text-[#66c0f4] ml-4" size={18} />
                             <input
                                 type="text"
-                                placeholder="Universal Search..."
+                                placeholder={t(lang, "universalSearch")}
                                 className={styles.searchInput}
                                 value={searchQuery}
                                 onChange={(e) => dispatch(setSearchQuery(e.target.value))}
@@ -159,7 +161,7 @@ export default function Shop() {
                             onClick={() => setShowAI(true)}
                         >
                             <Cpu size={14} />
-                            SYSTEM ASSISTANT
+                            {t(lang, "systemAssistant")}
                         </button>
                     </div>
                 </div>
@@ -176,17 +178,17 @@ export default function Shop() {
                             <div className="flex items-center gap-3 mb-6">
                                 <div className="w-1 h-6 bg-[#66c0f4] rounded-sm" />
                                 <h2 className="text-xl font-bold uppercase tracking-tight text-[#c7d5e0]">
-                                    System Assistant
+                                    {t(lang, "systemAssistantTitle")}
                                 </h2>
                             </div>
 
                             <p className="text-[#8f98a0] mb-6 text-sm">
-                                Describe your requirements and the system will suggest the most suitable match.
+                                {t(lang, "systemAssistantDesc")}
                             </p>
 
                             <input
                                 type="text"
-                                placeholder="Example: Fast-paced RPG with a deep story"
+                                placeholder={t(lang, "systemAssistantPlaceholder")}
                                 className="w-full bg-[#1b2838] border border-[#2a3f55] rounded-sm px-4 py-3 text-sm text-white placeholder-[#8f98a0]/50 focus:border-[#66c0f4]/60 outline-none transition-all"
                             />
 
@@ -195,12 +197,12 @@ export default function Shop() {
                                     onClick={() => setShowAI(false)}
                                     className="px-6 py-2.5 rounded-sm bg-[#1b2838] border border-[#2a3f55] hover:bg-[#16202d] text-[#c7d5e0] text-xs font-bold transition"
                                 >
-                                    BACK
+                                    {t(lang, "back")}
                                 </button>
                                 <button
                                     className="px-6 py-2.5 rounded-sm bg-[#1a73e8] text-white font-bold text-xs transition shadow-lg shadow-[#1a73e8]/20"
                                 >
-                                    GENERATE RECS
+                                    {t(lang, "generateRecs")}
                                 </button>
                             </div>
                         </div>
@@ -240,10 +242,10 @@ export default function Shop() {
                         <section className={styles.discoverySection}>
                             <div className={styles.sectionHeader}>
                                 <div>
-                                    <span className={styles.sectionLabel}>Region Critical</span>
-                                    <h3 className={styles.sectionTitleRedesign}>Trending in your region</h3>
+                                    <span className={styles.sectionLabel}>{t(lang, "regionCritical")}</span>
+                                    <h3 className={styles.sectionTitleRedesign}>{t(lang, "trendingRegion")}</h3>
                                 </div>
-                                <button className="text-[#66c0f4] text-xs font-bold hover:underline">VIEW ALL</button>
+                                <button className="text-[#66c0f4] text-xs font-bold hover:underline">{t(lang, "viewAll")}</button>
                             </div>
                             <div className={styles.discoveryGrid}>
                                 {trendingGames.map(game => (
@@ -263,8 +265,8 @@ export default function Shop() {
                         <section className={styles.discoverySection}>
                             <div className={styles.sectionHeader}>
                                 <div>
-                                    <span className={styles.sectionLabel}>Intelligence Pick</span>
-                                    <h3 className={styles.sectionTitleRedesign}>Recommended for you</h3>
+                                    <span className={styles.sectionLabel}>{t(lang, "intelligencePick")}</span>
+                                    <h3 className={styles.sectionTitleRedesign}>{t(lang, "recommendedForYou")}</h3>
                                 </div>
                             </div>
                             <div className={styles.discoveryGrid}>
@@ -285,8 +287,8 @@ export default function Shop() {
                         <section className={styles.discoverySection}>
                             <div className={styles.sectionHeader}>
                                 <div>
-                                    <span className={styles.sectionLabel}>Finance Alert</span>
-                                    <h3 className={styles.sectionTitleRedesign}>Special Offers</h3>
+                                    <span className={styles.sectionLabel}>{t(lang, "financeAlert")}</span>
+                                    <h3 className={styles.sectionTitleRedesign}>{t(lang, "specialOffers")}</h3>
                                 </div>
                             </div>
                             <div className={styles.discoveryGrid}>
@@ -308,8 +310,8 @@ export default function Shop() {
 
                 <div className={styles.footerSection}>
                     <div className="flex flex-col justify-end items-end text-right">
-                        <p className="text-[#66c0f4] font-black italic text-lg mb-2">SYSTEM_CONTROL</p>
-                        <p className="text-gray-600 text-[10px] font-bold tracking-widest">© 2024 CENTRAL DISTRIBUTION. ALL SYSTEMS OPERATIONAL.</p>
+                        <p className="text-[#66c0f4] font-black italic text-lg mb-2">{t(lang, "allRightsReserved")}</p>
+                        <p className="text-gray-600 text-[10px] font-bold tracking-widest">© 2026 </p>
                     </div>
                 </div>
             </div>

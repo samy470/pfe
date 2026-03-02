@@ -2,6 +2,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, CreditCard, ShieldCheck, Lock, ChevronRight, Loader2 } from 'lucide-react';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
+import { t } from '@/lib/i18n';
 import { loadStripe } from '@stripe/stripe-js';
 import {
     Elements,
@@ -36,6 +39,7 @@ function CheckoutForm({ total, onSuccess, onCancel }: { total: number, onSuccess
     const stripe = useStripe();
     const elements = useElements();
     const [isProcessing, setIsProcessing] = useState(false);
+    const lang = useSelector((state: RootState) => state.language.lang);
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
@@ -51,7 +55,7 @@ function CheckoutForm({ total, onSuccess, onCancel }: { total: number, onSuccess
 
         
         setIsProcessing(false);
-        toast.success("Transaction Authorized. Repository updated.");
+        toast.success(t(lang, 'transactionAuth'));
         onSuccess();
     };
 
@@ -60,7 +64,7 @@ function CheckoutForm({ total, onSuccess, onCancel }: { total: number, onSuccess
             <div className="bg-[#0b1119] border border-[#2a3f55] p-4 rounded-sm">
                 <div className="flex items-center gap-2 mb-4 text-[#6699cc]">
                     <CreditCard size={14} />
-                    <span className="text-[10px] font-black uppercase tracking-widest">Secure Credit Interface</span>
+                    <span className="text-[10px] font-black uppercase tracking-widest">{t(lang, 'secureCredit')}</span>
                 </div>
                 
                 <div className="p-3 bg-[#16202d] border border-[#1a73e8]/20 rounded-sm">
@@ -71,17 +75,17 @@ function CheckoutForm({ total, onSuccess, onCancel }: { total: number, onSuccess
             <div className="grid grid-cols-2 gap-4">
                 <div className="flex items-center gap-2 text-gray-500 text-[10px] uppercase font-bold tracking-tight">
                     <ShieldCheck size={12} />
-                    SSL Encrypted
+                    {t(lang, 'sslEncrypted')}
                 </div>
                 <div className="flex items-center gap-2 text-gray-500 text-[10px] uppercase font-bold tracking-tight justify-end">
                     <Lock size={12} />
-                    Anti-Fraud Active
+                    {t(lang, 'antiFraud')}
                 </div>
             </div>
 
             <div className="pt-4 border-t border-[#2a3f55] flex flex-col gap-3">
                 <div className="flex justify-between items-end mb-2">
-                    <span className="text-gray-400 text-xs font-bold uppercase">Total Order</span>
+                    <span className="text-gray-400 text-xs font-bold uppercase">{t(lang, 'totalOrder')}</span>
                     <span className="text-2xl font-black text-white">{total.toLocaleString()} DA</span>
                 </div>
 
@@ -93,11 +97,11 @@ function CheckoutForm({ total, onSuccess, onCancel }: { total: number, onSuccess
                     {isProcessing ? (
                         <>
                             <Loader2 size={18} className="animate-spin" />
-                            Authorizing...
+                            {t(lang, 'authorizing')}
                         </>
                     ) : (
                         <>
-                            Complete Purchase
+                            {t(lang, 'completePurchase')}
                             <ChevronRight size={18} />
                         </>
                     )}
@@ -108,7 +112,7 @@ function CheckoutForm({ total, onSuccess, onCancel }: { total: number, onSuccess
                     onClick={onCancel}
                     className="w-full text-gray-500 hover:text-white text-[10px] font-bold uppercase tracking-widest py-2 transition-colors"
                 >
-                    Return to Catalog
+                    {t(lang, 'returnToCatalog')}
                 </button>
             </div>
         </form>
@@ -126,6 +130,8 @@ export default function PaymentModal({
     total: number, 
     onSuccess: () => void 
 }) {
+    const lang = useSelector((state: RootState) => state.language.lang);
+
     if (!isOpen) return null;
 
     return (
@@ -143,9 +149,9 @@ export default function PaymentModal({
                     <div>
                         <div className="flex items-center gap-2 mb-1">
                             <div className="w-2 h-2 bg-[#1a73e8] rounded-full animate-ping" />
-                            <span className="text-[#66c0f4] text-[10px] font-black uppercase tracking-[0.3em]">Billing_Interface</span>
+                            <span className="text-[#66c0f4] text-[10px] font-black uppercase tracking-[0.3em]">{t(lang, 'billingInterface')}</span>
                         </div>
-                        <h2 className="text-2xl font-black text-white italic uppercase tracking-tighter">Secure Transaction</h2>
+                        <h2 className="text-2xl font-black text-white italic uppercase tracking-tighter">{t(lang, 'secureTransaction')}</h2>
                     </div>
                     <button onClick={onClose} className="p-2 hover:bg-white/5 rounded-full transition-colors text-gray-500 hover:text-white">
                         <X size={20} />

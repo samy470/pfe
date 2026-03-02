@@ -89,13 +89,13 @@ const NavBar = memo(function NavBar() {
               {t(lang, "home")}
             </Link>
             <Link href="/Shop" className={styles.navLink} onClick={() => setMenuOpen(false)}>
-               shop
+               {t(lang, "shop")}
             </Link>
             <Link href="/Contact" className={styles.navLink} onClick={() => setMenuOpen(false)}>
-              Contact
+              {t(lang, "contact")}
             </Link>
             <Link href="/Appointment" className={styles.navLink} onClick={() => setMenuOpen(false)}>
-              Service Request
+              {t(lang, "serviceRequest")}
             </Link>
             {isAdmin && (
               <div className={styles.dropdownWrapper} ref={adminDropdownRef}>
@@ -103,18 +103,18 @@ const NavBar = memo(function NavBar() {
                   className={`${styles.navLink} ${styles.roleLink} ${styles.dropdownToggle}`}
                   onClick={() => setAdminDropdownOpen(!adminDropdownOpen)}
                 >
-                  Admin Console {adminDropdownOpen ? '▴' : '▾'}
+                  {t(lang, "adminConsole")} {adminDropdownOpen ? '▴' : '▾'}
                 </button>
                 {adminDropdownOpen && (
                   <div className={styles.dropdownMenu}>
                     <Link href="/admin/games" className={styles.dropdownItem} onClick={() => { setAdminDropdownOpen(false); setMenuOpen(false); }}>
-                      Inventory Management
+                      {t(lang, "inventoryManagement")}
                     </Link>
                     <Link href="/admin/audit" className={styles.dropdownItem} onClick={() => { setAdminDropdownOpen(false); setMenuOpen(false); }}>
-                      Audit Log
+                      {t(lang, "auditLog")}
                     </Link>
                     <Link href="/admin/pricing" className={styles.dropdownItem} onClick={() => { setAdminDropdownOpen(false); setMenuOpen(false); }}>
-                      Pricing Settings
+                      {t(lang, "pricingSettings")}
                     </Link>
                   </div>
                 )}
@@ -127,18 +127,18 @@ const NavBar = memo(function NavBar() {
                   className={`${styles.navLink} ${styles.roleLink} ${styles.dropdownToggle}`}
                   onClick={() => setPublisherDropdownOpen(!publisherDropdownOpen)}
                 >
-                  Provider Portal {publisherDropdownOpen ? '▴' : '▾'}
+                  {t(lang, "providerPortal")} {publisherDropdownOpen ? '▴' : '▾'}
                 </button>
                 {publisherDropdownOpen && (
                   <div className={styles.dropdownMenu}>
                     <Link href="/publisher/my-games" className={styles.dropdownItem} onClick={() => { setPublisherDropdownOpen(false); setMenuOpen(false); }}>
-                      My Games
+                      {t(lang, "myGames")}
                     </Link>
                     <Link href="/publisher/analytics" className={styles.dropdownItem} onClick={() => { setPublisherDropdownOpen(false); setMenuOpen(false); }}>
-                      Analytics
+                      {t(lang, "analytics")}
                     </Link>
                     <Link href="/publisher/settings" className={styles.dropdownItem} onClick={() => { setPublisherDropdownOpen(false); setMenuOpen(false); }}>
-                      Settings
+                      {t(lang, "settings")}
                     </Link>
                   </div>
                 )}
@@ -151,15 +151,15 @@ const NavBar = memo(function NavBar() {
                   className={`${styles.navLink} ${styles.roleLink} ${styles.dropdownToggle}`}
                   onClick={() => setCustomerDropdownOpen(!customerDropdownOpen)}
                 >
-                  Client Portal {customerDropdownOpen ? '▴' : '▾'}
+                  {t(lang, "clientPortal")} {customerDropdownOpen ? '▴' : '▾'}
                 </button>
                 {customerDropdownOpen && (
                   <div className={styles.dropdownMenu}>
                     <Link href="/customer/purchases" className={styles.dropdownItem} onClick={() => { setCustomerDropdownOpen(false); setMenuOpen(false); }}>
-                      My Purchases
+                      {t(lang, "myPurchases")}
                     </Link>
                     <Link href="/customer/wishlist" className={styles.dropdownItem} onClick={() => { setCustomerDropdownOpen(false); setMenuOpen(false); }}>
-                      My Wishlist
+                      {t(lang, "myWishlist")}
                     </Link>
                   </div>
                 )}
@@ -233,14 +233,14 @@ const NavBar = memo(function NavBar() {
                         className={styles.dropdownLink} 
                         onClick={() => setUserDropdownOpen(false)}
                       >
-                        <User size={14} /> View Profile
+                        <User size={14} /> {t(lang, "viewProfile")}
                       </Link>
                       <Link href="/Settings" className={styles.dropdownLink} onClick={() => setUserDropdownOpen(false)}>
-                        <Settings size={14} /> Preferences
+                        <Settings size={14} /> {t(lang, "preferences")}
                       </Link>
                       <div className={styles.divider} />
                       <button onClick={handleLogout} className={styles.logoutAction}>
-                        <LogOut size={14} /> Sign Out
+                        <LogOut size={14} /> {t(lang, "logout")}
                       </button>
                     </div>
                   )}

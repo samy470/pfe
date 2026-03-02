@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addToCart } from '@/redux/shopSlice';
 import { RootState } from '@/redux/store';
 import { toast } from 'react-toastify';
+import { t } from '@/lib/i18n';
 import styles from './shop.module.css';
 import { X, ShoppingCart, Monitor, Cpu, Star, TrendingUp } from 'lucide-react';
 
@@ -17,6 +18,7 @@ interface GameDetailsModalProps {
 export default function GameDetailsModal({ game, onClose, onOpenCart, getPrice }: GameDetailsModalProps) {
     const dispatch = useDispatch();
     const { isLoggedIn } = useSelector((state: RootState) => state.auth);
+    const lang = useSelector((state: RootState) => state.language.lang);
     
     if (!game) return null;
 
@@ -50,15 +52,15 @@ export default function GameDetailsModal({ game, onClose, onOpenCart, getPrice }
                         
                         <div className={styles.sidebarMeta}>
                             <div className={styles.metaRow}>
-                                <span className={styles.metaLabel}>Developer</span>
+                                <span className={styles.metaLabel}>{t(lang, 'developer')}</span>
                                 <span className={styles.metaVal}>{game.publisher}</span>
                             </div>
                             <div className={styles.metaRow}>
-                                <span className={styles.metaLabel}>Release Date</span>
+                                <span className={styles.metaLabel}>{t(lang, 'releaseDate')}</span>
                                 <span className={styles.metaVal}>2024</span>
                             </div>
                             <div className={styles.metaRow}>
-                                <span className={styles.metaLabel}>Rating</span>
+                                <span className={styles.metaLabel}>{t(lang, 'rating')}</span>
                                 <div className="flex items-center gap-1 text-[#f4b400]">
                                     <Star size={12} fill="currentColor" />
                                     <span className="font-bold">{game.rating}</span>
@@ -85,7 +87,7 @@ export default function GameDetailsModal({ game, onClose, onOpenCart, getPrice }
                                 className={styles.sidebarBuyBtn}
                                 onClick={() => {
                                     if (!isLoggedIn) {
-                                        toast.error("Authentication required. Please sign in to purchase.");
+                                        toast.error(t(lang, 'authRequiredText'));
                                         return;
                                     }
                                     dispatch(addToCart(game));
@@ -94,7 +96,7 @@ export default function GameDetailsModal({ game, onClose, onOpenCart, getPrice }
                                 }}
                             >
                                 <ShoppingCart size={18} />
-                                Add to Cart
+                                {t(lang, 'addToCart')}
                             </button>
                         </div>
                     </div>
@@ -106,7 +108,7 @@ export default function GameDetailsModal({ game, onClose, onOpenCart, getPrice }
                             <div className={styles.heroTitleBox}>
                                 <div className="flex items-center gap-3 mb-2">
                                     <span className={styles.heroCatBadge}>{game.category}</span>
-                                    {game.trending && <span className={styles.heroTrendBadge}><TrendingUp size={12} /> Trending</span>}
+                                    {game.trending && <span className={styles.heroTrendBadge}><TrendingUp size={12} /> {t(lang, 'trending')}</span>}
                                 </div>
                                 <h2 className={styles.heroModalTitle}>{game.name}</h2>
                             </div>
@@ -114,24 +116,24 @@ export default function GameDetailsModal({ game, onClose, onOpenCart, getPrice }
 
                         <div className={styles.mainContentArea}>
                             <div className={styles.descriptionSection}>
-                                <h4 className={styles.sectionHeading}>Project Overview</h4>
+                                <h4 className={styles.sectionHeading}>{t(lang, 'projectOverview')}</h4>
                                 <p className={styles.descriptionP}>{game.details}</p>
                             </div>
 
                             <div className={styles.requirementsSection}>
-                                <h4 className={styles.sectionHeading}>System Configuration</h4>
+                                <h4 className={styles.sectionHeading}>{t(lang, 'systemConfig')}</h4>
                                 <div className={styles.reqGrid}>
                                     <div className={styles.reqItem}>
                                         <Monitor size={16} className="text-[#66c0f4]" />
                                         <div>
-                                            <span className={styles.reqLabel}>Recommended Specs</span>
+                                            <span className={styles.reqLabel}>{t(lang, 'recommendedSpecs')}</span>
                                             <p className={styles.reqVal}>{game.requirements}</p>
                                         </div>
                                     </div>
                                     <div className={styles.reqItem}>
                                         <Cpu size={16} className="text-[#66c0f4]" />
                                         <div>
-                                            <span className={styles.reqLabel}>Storage Capacity</span>
+                                            <span className={styles.reqLabel}>{t(lang, 'storageCapacity')}</span>
                                             <p className={styles.reqVal}>{game.size}</p>
                                         </div>
                                     </div>

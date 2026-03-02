@@ -2,6 +2,9 @@
 import { motion } from 'framer-motion';
 import { Gamepad2, ChevronRight, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
+import { t } from '@/lib/i18n';
 import styles from './hero.module.css';
 
 const GAME_COVERS = [
@@ -39,6 +42,8 @@ const ScrollingColumn = ({ items, speed = 40, reverse = false }: { items: string
 };
 
 const Hero = () => {
+  const lang = useSelector((state: RootState) => state.language.lang);
+
   const col1 = [...GAME_COVERS];
   const col2 = [...GAME_COVERS].reverse();
   const col3 = [...GAME_COVERS].slice(2).concat(GAME_COVERS.slice(0, 2));
@@ -71,22 +76,21 @@ const Hero = () => {
           >
             <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-1 bg-[#66c0f4] rounded-sm" />
-                <p className="text-[#8f98a0] font-bold uppercase tracking-[0.5em] text-xs">Official Distribution</p>
+                <p className="text-[#8f98a0] font-bold uppercase tracking-[0.5em] text-xs">{t(lang, "officialDistribution")}</p>
                 <div className="w-12 h-1 bg-[#66c0f4] rounded-sm" />
             </div>
             <h1 className="text-6xl md:text-8xl font-black text-white leading-[0.9] mb-6 uppercase tracking-tighter">
-             DISCOVER <span className="text-[#66c0f4]">DOWNLOAD</span> <br />
-             DOMINATE
+             {t(lang, "discover")} <span className="text-[#66c0f4]">{t(lang, "download")}</span> <br />
+             {t(lang, "dominate")}
             </h1>
             <p className="text-[#8f98a0] text-lg lg:text-xl font-medium max-w-2xl mx-auto leading-relaxed">
-             Your ultimate destination for premium PC games.
-             Explore curated titles, exclusive releases, and intelligent recommendations built for serious players.
+             {t(lang, "heroDesc")}
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-10">
               <Link href="/Shop">
                 <button className="group relative flex items-center gap-4 bg-[#66c0f4] text-[#0e141b] px-10 py-4 rounded-sm font-black text-xs uppercase tracking-widest hover:bg-[#1999ff] hover:text-white transition-all shadow-xl">
-                  <span>EXPLORE STORE</span>
+                  <span>{t(lang, "exploreStore")}</span>
                   <ArrowRight className="group-hover:translate-x-1 transition-transform" size={16} />
                 </button>
               </Link>
