@@ -40,8 +40,8 @@ const Login = ({ onLogin }: { onLogin?: () => void }) => {
       const result = await response.json();
       if (response.ok) {
         localStorage.setItem('token', result.token);
-        localStorage.setItem('username', result.username);
-        localStorage.setItem('role', result.role || 'customer');
+        localStorage.setItem('username', result.user.username);
+        localStorage.setItem('role', result.user.role || 'customer');
         dispatch(setUser({ role: result.role || 'customer', username: result.username }));
         onLogin?.();
         router.push('/');
