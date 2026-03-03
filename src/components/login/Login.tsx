@@ -41,10 +41,10 @@ const Login = ({ onLogin }: { onLogin?: () => void }) => {
       if (response.ok) {
         localStorage.setItem('token', result.token);
         localStorage.setItem('username', result.user.username);
-        localStorage.setItem('role', result.user.role || 'customer');
-        dispatch(setUser({ role: result.role || 'customer', username: result.username }));
+        localStorage.setItem('role', result.user.role);
+        dispatch(setUser({ role: result.role, username: result.username }));
         onLogin?.();
-        router.push('/');
+        window.location.href = '/'
       } else {
         setError(result.message || 'Invalid username or password');
       }

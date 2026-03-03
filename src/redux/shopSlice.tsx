@@ -1,21 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchGames = createAsyncThunk("cart/fetchGames", async () => {
-  const res = await fetch("http://localhost:5000/api/games");
-  if (!res.ok) throw new Error("Failed to fetch games");
-  return await res.json();
-});
-
-export const searchGames = createAsyncThunk("cart/searchGames", async (query: string) => {
-  const res = await fetch(`http://localhost:5000/api/games/search?q=${query}`);
-  if (!res.ok) throw new Error("Failed to search games");
-  return await res.json();
-});
-
-export const fetchGameById = createAsyncThunk("cart/fetchGameById", async (id: number) => {
-  const res = await fetch(`http://localhost:5000/api/games/${id}`);
-  if (!res.ok) throw new Error("Failed to fetch game");
-  return await res.json();
+  try {
+    const res = await fetch("http://localhost:5000/api/games");
+    if (!res.ok) throw new Error("Failed to fetch games");
+    return await res.json();
+  } catch (error) {
+    
+  }
 });
 
 interface Item {
@@ -45,8 +37,6 @@ interface CartState {
   searchQuery: string;
   selectedCategory: string;
   pricingStrategy: 'default' | 'sale' | 'premium';
-  loading: boolean;
-  error: string | null;
 }
 
 const initialState: CartState = {
@@ -57,8 +47,6 @@ const initialState: CartState = {
   searchQuery: "",
   selectedCategory: "All",
   pricingStrategy: 'default',
-  loading: false,
-  error: null,
 };
 
 const cartSlice = createSlice({
@@ -114,31 +102,10 @@ const cartSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
-    builder
-      .addCase(fetchGames.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(fetchGames.fulfilled, (state, action) => {
-        state.loading = false;
-        state.original = action.payload;
-        state.list = action.payload;
-      })
-      .addCase(fetchGames.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message || 'Failed to fetch games';
-      })
-      .addCase(searchGames.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(searchGames.fulfilled, (state, action) => {
-        state.loading = false;
-        state.list = action.payload;
-      })
-      .addCase(searchGames.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message || 'Failed to search games';
-      });
+    builder.addCase(fetchGames.fulfilled, (state, action) => {
+      state.original = action.payload;
+      state.list = action.payload;
+    });
   }
 });
 
