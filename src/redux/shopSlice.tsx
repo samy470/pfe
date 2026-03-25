@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchGames = createAsyncThunk("cart/fetchGames", async () => {
   try {
-    const res = await fetch("http://localhost:5000/api/games");
+    const res = await fetch("https://pfe-back-s17w.onrender.com/api/games");
     if (!res.ok) throw new Error("Failed to fetch games");
     return await res.json();
   } catch (error) {
