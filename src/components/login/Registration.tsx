@@ -41,7 +41,7 @@ const Register = () => {
         }
         setLoading(true);
         try {
-            const response = await fetch('${process.env.NEXT_PUBLIC_API_URL}/api/register', {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
                 body: JSON.stringify(data),
