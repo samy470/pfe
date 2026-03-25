@@ -1,19 +1,19 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchGames = createAsyncThunk("cart/fetchGames", async () => {
-  const res = await fetch("http://localhost:5000/api/games");
+  const res = await fetch("https://pfe-back-s17w.onrender.com/api/games");
   if (!res.ok) throw new Error("Failed to fetch games");
   return await res.json();
 });
 
 export const searchGames = createAsyncThunk("cart/searchGames", async (query: string) => {
-  const res = await fetch(`http://localhost:5000/api/games/search?q=${query}`);
+  const res = await fetch(`https://pfe-back-s17w.onrender.com/api/games/search?q=${query}`);
   if (!res.ok) throw new Error("Failed to search games");
   return await res.json();
 });
 
 export const fetchGameById = createAsyncThunk("cart/fetchGameById", async (id: number) => {
-  const res = await fetch(`http://localhost:5000/api/games/${id}`);
+  const res = await fetch(`https://pfe-back-s17w.onrender.com/api/games/${id}`);
   if (!res.ok) throw new Error("Failed to fetch game");
   return await res.json();
 });
