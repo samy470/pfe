@@ -32,7 +32,7 @@ const Login = ({ onLogin }: { onLogin?: () => void }) => {
     setError('');
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:8080/api/login', {
+      const response = await fetch('${process.env.NEXT_PUBLIC_API_URL}/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({ username: data.username, password: data.password }),
